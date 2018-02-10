@@ -1,26 +1,366 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-	<title>ScottSpeed</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+	<title>Bees Vs Humans</title>
+	<style>
+	canvas 
+	{
+		border:1px black solid;
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+</style>
+<script src="bees.js"></script>
 </head>
-<body>
- <ul class="topnav" id="myTopnav" style="position:fixed; z-index:2">
- 	<hi>ScottSpeed</hi>
-  <li><a href="#map">Map</a></li>
-  <li><a href="stats.html">Stats</a></li>
-  <li><a href="leaderboard.html">Leaderboard</a></li>
-  <li><a href="about.html">About</a></li>
-  <li><input type="text" id="username" placeholder="Username"></li>
-  <li><button onClick="login()" id="login">Login</button></li>
-  <li><button onClick="register()" id="register">Register</button></li>
-  <li><button onClick="detect()" id="detect">Detect</button></li>
-   <li class="icon">
-    <a href="javascript:void(0);" onclick="addResponse()">&#9776;</a>
-  </li>
-</ul>
-  <div id="map" style="z-index:1;"></div>
-  <div id="/freetheucstones/leaderboard" style="z-index:1;"></div>
-  <div id="/freetheucstones/about" style="z-index:1;"></div>
+<body>	
 </body>
 </html>
+<script>
+	lawn = 
+	{
+		background:"green",
+		numX:15,
+		numY:10,
+		rectWidth:80,
+		rectHeight:80,
+		lawn:[],
+		fill:function(pole)
+		{
+			for(var i=0;i<this.numY;i++)
+			{
+				var helper=[];
+				for(var j=0;j<this.numX;j++)
+				{
+					helper.push(0);
+				}
+				pole.push(helper);
+			};
+		},
+		draw:function()
+		{
+			context.beginPath();
+			context.rect(0, 0, this.numX*this.rectWidth, canvas.height);
+			context.fillStyle = this.background;
+			context.fill();
+		}
+	};
+	
+	sidebar=
+	{
+		background:"grey",
+		draw:function()
+		{
+			
+			/* Draw sidebar */
+			context.beginPath();
+			context.rect(lawn.numX*lawn.rectWidth, 0, 2.5*lawn.rectWidth, canvas.height);
+			context.fillStyle = this.background;
+			context.fill();
+
+			/* Draw honey */
+			
+			context.font = 'italic 35pt Calibri';
+			context.fillStyle = 'blue';
+			context.fillText("slnk: "+slnk, (lawn.numX*lawn.rectWidth+10), 45);
+			
+			/* Draw bees */
+			
+			for(i in this.bees)
+			{
+				var toto =this.bees[i];
+				toto.image.src="images/"+toto.img;								
+				if(player.select[0]==toto.name)
+				{
+					context.beginPath();
+					context.rect(toto.x, toto.y, lawn.rectWidth, lawn.rectHeight);
+					context.fillStyle = '#444';
+					context.fill();
+				}
+				context.drawImage(toto.image,toto.x,toto.y,lawn.rectWidth,lawn.rectHeight);
+			}
+		},
+		
+		/* List of bees */
+		
+		bees:
+		{
+			0:
+			{
+				id:"a",
+				image : new Image(),
+				img: "SunflowerHD.png",				
+				name:"slnecnica",
+				x:1250,
+				y:65,
+			},
+			1:
+			{
+				id:"b",
+				image : new Image(),
+				img: "PeashooterHD.png",
+				name:"kvetina",
+				x:1250,
+				y:65+90,
+			},
+			2:
+			{
+				id:"c",
+				image : new Image(),
+				img: "KernelPultHD.png",
+				name:"kukurica",
+				x:1250,
+				y:65+180,	
+			}
+		}
+	};
+	
+	player=
+	{
+		select:false
+	};
+	
+	function init()
+	{
+		 canvas= document.createElement("canvas");
+		 canvas.width=window.innerWidth;
+		 canvas.height=window.innerHeight;
+		 document.body.appendChild(canvas);
+		 context = canvas.getContext('2d');
+		 isPlaying=false;
+		 ticks=0;
+		 slnk=100;
+		 lasthumanAdd=Date.now();
+		 bees=[];
+		 humans=[];
+		 honey=[];
+		 shots=[];
+		 lawn.fill(lawn.lawn);
+		};
+
+		function mainLoop()
+		{
+
+			check();
+			seeder();
+			draw();
+			move();
+			ticks++;
+
+			if(isPlaying)
+			{
+				requestAnimationFrame(mainLoop);
+			}
+		};
+
+		function draw()
+		{
+			lawn.draw();
+			for(i in bees)
+			{
+				bees[i].draw();
+			}
+			for(i in humans)
+			{
+				humans[i].draw();
+			}
+			for(i in shots)
+			{
+				shots[i].draw();
+			}
+			for(i in honey)
+			{
+				honey[i].draw();
+			}
+			sidebar.draw();
+		};
+
+		function move()
+		{
+			for(i in humans)
+			{
+				humans[i].move();
+			}
+			for(i in honey)
+			{
+				honey[i].move();
+			}
+
+			/* Move shots */
+
+			for(i in shots)
+			{
+				shots[i].move();
+			}
+		};		
+
+		function check()
+		{
+
+			/*Check if bee shots or produce honey*/
+
+			for(i in bees)
+			{
+				if(typeof(bees[i].checkGetingSun) === "function")
+				{
+					bees[i].checkGetingSun();
+				}
+				if(typeof(bees[i].checkShot) === "function")
+				{
+					bees[i].checkShot();
+				}
+			};
+			i=0;
+
+			/* Check honey life */
+
+			for(i in honey)
+			{
+				if(honey[i].checkLife())
+				{
+					honey.splice(i,1);
+				}
+			};
+			i=0;
+
+			/* Check if shot hit target */
+
+			for(i in shots)
+			{
+				var toto=shots[i];	
+				if(typeof(toto.checkColision) === "function"){		
+					if(toto.checkColision())
+					{
+						shots.splice(i,1);
+						continue;	
+					}
+				}
+				if(typeof(toto.life) != "undefined")
+				{
+					if(toto.life<0)
+					{
+						toto.target.healt--;
+						if(toto.target.healt<=0)
+						{
+							humans.splice(humans.indexOf(toto.target),1);
+						}
+						shots.splice(i,1);
+						continue;	
+					}
+				}
+				if(toto.x-toto.polomer>=lawn.numX*lawn.rectWidth)
+				{
+					shots.splice(i,1);
+				}
+			};
+			i=0;
+
+
+			for(i in humans)
+			{
+				humans[i].checkBite();
+			};
+		};
+
+		function seeder()
+		{
+
+			/* Add new human every 10 seconds*/
+
+			if(Date.now()-lasthumanAdd>=10000)
+			{
+				var riadok=Math.floor(Math.random()*10);
+				humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+				lasthumanAdd=Date.now();
+			}
+		};
+
+		function click(data)
+		{
+
+			/* If click in sidebar */
+
+			for(j in sidebar.bees)
+			{
+				var toto=sidebar.bees[j];
+				var X=data.clientX;
+				var Y=data.clientY;
+				var click=((X>toto.x)&&(X<toto.x+lawn.rectWidth)&&(Y>toto.y)&&(Y<toto.y+lawn.rectHeight));
+				if(click)
+				{
+					if(player.select[0]==toto["name"])
+					{
+						player.select=false;
+						break;
+					}
+					else
+					{
+						if(slnk-window[toto["name"]].prototype.cena>=0)
+						{
+							player.select=[toto["name"],toto["id"]];
+							break;
+						}
+					}
+				}
+			}
+
+			/* If click in sun */
+
+			for(i in honey)
+			{
+				var toto=honey[i];
+				if(clickIn(X,Y,toto))
+				{
+					slnk+=toto.honey;
+					honey.splice(i,1);
+					return true;
+				}
+			}
+
+			/* If click in lawn */
+
+			if((data.x>=0)&&(data.x<=lawn.numX*lawn.rectWidth)&&(data.y>=0)&&(data.y<=lawn.numY*lawn.rectHeight)&&(player.select))
+			{
+				var Xko=Math.floor(X/lawn.rectWidth);
+				var Yko=Math.floor(Y/lawn.rectHeight);
+				if(lawn.lawn[Yko][Xko]!=0)
+				{
+					return false;
+				}
+				bees.push(new window[player.select[0]](data.clientX,data.clientY));
+				lawn.lawn[Yko][Xko]=player.select[1];
+				player.select=false;			
+			}
+		};
+
+		function colision(a,b)
+		{
+			if((b.x+b.width>a.x)&&
+				(b.y+b.height>a.y)&&
+				(b.x<a.x+a.width)&&
+				(b.y<a.y+a.height))
+			{
+				return 1;
+			}  
+			return 0;
+		};
+
+		function clickIn(x,y,obj)
+		{
+			if((obj.x<x)&&(obj.x+obj.polomer*2>x)&&(obj.y<y)&&(obj.y+obj.polomer*2>y))
+			{
+				return 1;
+			}
+			return 0;
+		};
+
+		window.onclick=function(d)
+		{
+			click(d);
+		};
+
+		init();
+		isPlaying=true;
+		mainLoop();
+
+	</script>
