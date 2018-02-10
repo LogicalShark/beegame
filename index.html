@@ -137,6 +137,7 @@
 		isBreak = false;
 		win = false;
 		lose = false;
+		humanspassed = 0;
 		bees = [];
 		humans = [];
 		honeys = [];
@@ -191,6 +192,10 @@
 		for(i in humans)
 		{
 			humans[i].move();
+			if(humans[i].x<0)
+			{
+				humanspassed += 1;
+			}
 		}
 		for(i in honeys)
 		{
