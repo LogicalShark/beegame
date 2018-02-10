@@ -336,7 +336,6 @@ swarm=function(x,y)
 	this.health=10;
 	this.attack=1;
 	this.lastShot=Date.now();
-	this.rapidFire=3;
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/swarm.png";
@@ -355,17 +354,12 @@ swarm.prototype=
 			var curr = humans[i];
 			if(curr.y==this.y)
 			{
-				if(this.rapidFire>=3 && Date.now()-this.lastShot>7000)
+				if(Date.now()-this.lastShot>5000)
 				{
-					shots.push(new Shot2(this.x,this.y,curr,this.attack));
+					shots.push(new Shot(this.x,this.y,curr,this.attack));
+					shots.push(new Shot3(this.x,this.y,curr,this.attack));
+					shots.push(new Shot4(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
-					this.rapidFire = 0;
-					break;
-				}
-				else if(this.rapidFire<3)
-				{
-					this.rapidFire+=1;
-					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					break;
 				}
 			}
@@ -403,6 +397,98 @@ Shot2.prototype=
 		this.life--;
 		console.log(this.life);
 	},
+};
+Shot3=function(x,y,dx,dy,attack)
+{
+	this.radius=5;
+	this.image=new Image();
+	this.image.src="images/stinger.png";
+	this.x=x;
+	this.y=y+lawn.rectHeight;
+	this.dx=dx;
+	this.dy=dy;
+	this.attack=attack;	
+
+};
+Shot3.prototype=
+{
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	move:function()
+	{
+		this.x+=this.dx;
+		this.y+=this.dy;
+	},
+	checkCollision:function()
+	{
+		for(j in humans)
+		{
+			var curr=humans[j];
+			if((this.y-lawn.rectHeight/2+16)==curr.y)
+			{
+				if((this.x+this.radius-16)>=curr.x)
+				{
+					console.log("Ouch");
+					curr.health-=this.attack;
+					this.attack=0;
+					if(curr.health<=0)
+					{
+						humans.splice(j,1);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+};
+Shot4=function(x,y,dx,dy,attack)
+{
+	this.radius=5;
+	this.image=new Image();
+	this.image.src="images/stinger.png";
+	this.x=x;
+	this.y=y-lawn.rectHeight;
+	this.dx=dx;
+	this.dy=dy;
+	this.attack=attack;	
+
+};
+Shot4.prototype=
+{
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	move:function()
+	{
+		this.x+=this.dx;
+		this.y+=this.dy;
+	},
+	checkCollision:function()
+	{
+		for(j in humans)
+		{
+			var curr=humans[j];
+			if((this.y-lawn.rectHeight/2+16)==curr.y)
+			{
+				if((this.x+this.radius-16)>=curr.x)
+				{
+					console.log("Ouch");
+					curr.health-=this.attack;
+					this.attack=0;
+					if(curr.health<=0)
+					{
+						humans.splice(j,1);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 };
 bumblebee=function(x,y)
 {
