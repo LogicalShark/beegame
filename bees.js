@@ -1,65 +1,3 @@
-honeycomb=function(x,y)
-{
-	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
-	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
-	this.start=Date.now();
-	this.health=6;
-	honey-=this.cost;
-	this.honeyVal=50;
-	this.lasthoneys=Date.now();
-	this.image = new Image();
-	this.image.src="images/honeycomb.png";
-};
-honeycomb.prototype=
-{
-	cost:25,
-	draw:function()
-	{
-		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
-	},
-	checkGettingHoneys:function()
-	{
-		if(Date.now()-this.lasthoneys>=10000)
-		{
-			console.log(pushed)
-			honeys.push(new honeyDrop(this.x,this.y,this.honeyVal));
-			this.lasthoneys=Date.now();
-		};
-	}
-};
-honeybee=function(x,y)
-{
-	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
-	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
-	this.start=Date.now();
-	this.health=10;
-	this.attack=1;
-	this.lastShot=Date.now();
-	honey-=this.cost;
-	this.image = new Image();
-	this.image.src="images/honeybee.png";
-};
-honeybee.prototype=
-{
-	cost:50,
-	draw:function()
-	{
-		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
-	},
-	checkShot:function()
-	{
-		if(Date.now()-this.lastShot>=5000){	
-			for( var j in humans )
-			{
-				if(humans[j].y==this.y){	
-					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
-					this.lastShot=Date.now();
-					break;
-				}
-			}
-		}
-	}
-};
 caveman=function(x,y)
 {
 	this.health=3;
@@ -225,52 +163,6 @@ modernhuman.prototype=
 		}
 	}
 };
-Shot=function(x,y,dx,dy,attack)
-{
-	this.radius=5;
-	this.image=new Image();
-	this.image.src="images/stinger.png";
-	this.x=x;
-	this.y=y;
-	this.dx=dx;
-	this.dy=dy;
-	this.attack=attack;	
-
-};
-Shot.prototype=
-{
-	draw:function()
-	{
-		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
-	},
-	move:function()
-	{
-		this.x+=this.dx;
-		this.y+=this.dy;
-	},
-	checkCollision:function()
-	{
-		for(j in humans)
-		{
-			var curr=humans[j];
-			if((this.y-lawn.rectHeight/2+16)==curr.y)
-			{
-				if((this.x+this.radius-16)>=curr.x)
-				{
-					console.log("Ouch");
-					curr.health-=this.attack;
-					this.attack=0;
-					if(curr.health<=0)
-					{
-						humans.splice(j,1);
-					}
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-};
 honeyDrop=function(x,y,honeyValue)
 {
 	this.honeyVal=honeyValue;
@@ -329,40 +221,50 @@ honeyDrop.prototype=
 		return false;
 	}
 };
-swarm=function(x,y)
+Shot=function(x,y,dx,dy,attack)
 {
-	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
-	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
-	this.start=Date.now();
-	this.health=10;
-	this.attack=1;
-	this.lastShot=Date.now();
-	honey-=this.cost;
-	this.image = new Image();
-	this.image.src="images/swarm.png";
+	this.radius=5;
+	this.image=new Image();
+	this.image.src="images/stinger.png";
+	this.x=x;
+	this.y=y;
+	this.dx=dx;
+	this.dy=dy;
+	this.attack=attack;	
+
 };
-swarm.prototype=
+Shot.prototype=
 {
-	cost:100,
 	draw:function()
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
-	checkShot:function()
+	move:function()
 	{
-		for(var i in humans)
+		this.x+=this.dx;
+		this.y+=this.dy;
+	},
+	checkCollision:function()
+	{
+		for(j in humans)
 		{
-			var curr = humans[i];
-			if(curr.y==this.y || curr.y==this.y+lawn.rectHeight || curr.y==this.y-lawn.rectHeight)
+			var curr=humans[j];
+			if((this.y-lawn.rectHeight/2+16)==curr.y)
 			{
-				if(Date.now()-this.lastShot>5000)
+				if((this.x+this.radius-16)>=curr.x)
 				{
-					shots.push(new Shot(this.x,this.y,curr,this.attack));
-					this.lastShot=Date.now();
-					break;
+					console.log("Ouch");
+					curr.health-=this.attack;
+					this.attack=0;
+					if(curr.health<=0)
+					{
+						humans.splice(j,1);
+					}
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 };
 Shot2=function(x,y,t,attack)
@@ -396,6 +298,106 @@ Shot2.prototype=
 		this.life--;
 		console.log(this.life);
 	},
+};
+honeycomb=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=6;
+	honey-=this.cost;
+	this.honeyVal=50;
+	this.lasthoneys=Date.now();
+	this.image = new Image();
+	this.image.src="images/honeycomb.png";
+};
+honeycomb.prototype=
+{
+	cost:25,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkGettingHoneys:function()
+	{
+		if(Date.now()-this.lasthoneys>=10000)
+		{
+			console.log(pushed)
+			honeys.push(new honeyDrop(this.x,this.y,this.honeyVal));
+			this.lasthoneys=Date.now();
+		};
+	}
+};
+honeybee=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=10;
+	this.attack=1;
+	this.lastShot=Date.now();
+	honey-=this.cost;
+	this.image = new Image();
+	this.image.src="images/honeybee.png";
+};
+honeybee.prototype=
+{
+	cost:50,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkShot:function()
+	{
+		if(Date.now()-this.lastShot>=5000){	
+			for(var j in humans)
+			{
+				if(humans[j].y==this.y){	
+					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
+					this.lastShot=Date.now();
+					break;
+				}
+			}
+		}
+	}
+};
+swarm=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=20;
+	this.attack=1;
+	this.lastShot=Date.now();
+	honey-=this.cost;
+	this.image = new Image();
+	this.image.src="images/swarm.png";
+};
+swarm.prototype=
+{
+	cost:100,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkShot:function()
+	{
+		for(var i in humans)
+		{
+			var curr = humans[i];
+			if((curr.y==this.y) || (curr.y==this.y+lawn.rectHeight) || (curr.y==this.y-lawn.rectHeight))
+			{
+				if(Date.now()-this.lastShot>5000)
+				{
+					shots.push(new Shot(this.x,this.y,curr,this.attack));
+					shots.push(new Shot(this.x,this.y+lawn.rectHeight,curr,this.attack));
+					shots.push(new Shot(this.x,this.y-lawn.rectHeight,curr,this.attack));
+					this.lastShot=Date.now();
+					break;
+				}
+			}
+		}
+	}
 };
 bumblebee=function(x,y)
 {
