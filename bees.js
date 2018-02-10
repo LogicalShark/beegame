@@ -480,7 +480,7 @@ swarm=function(x,y)
 };
 swarm.prototype=
 {
-	cost:100,
+	cost:125,
 	draw:function()
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
