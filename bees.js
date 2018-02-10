@@ -116,7 +116,8 @@ caveman.prototype=
 };
 Shot=function(x,y,dx,dy,attack)
 {
-	this.radius=5;
+	this.image=new Image();
+	this.image.src="stinger.png"
 	this.x=x;
 	this.y=y;
 	this.dx=dx;
@@ -232,6 +233,7 @@ swarm=function(x,y)
 	this.health=10;
 	this.attack=1;
 	this.lastShot=Date.now();
+	this.rapidFire=3;
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/swarm.png";
@@ -245,15 +247,22 @@ swarm.prototype=
 	},
 	checkShot:function()
 	{
-		for( var i in humans)
+		for(var i in humans)
 		{
 			var curr = humans[i];
 			if(curr.y==this.y)
 			{
-				if(Date.now()-this.lastShot>7000)
+				if(!this.rapidFire && Date.now()-this.lastShot>7000)
 				{
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
+					this.rapidFire = 0;
+					break;
+				}
+				else if(this.rapidFire<3)
+				{
+					rapidFire+=1;
+					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					break;
 				}
 			}
