@@ -345,8 +345,32 @@ Shot2.prototype=
 		this.y+=this.dy;
 		this.dy++;
 		this.life--;
-		console.log(this.life);
 	},
+	checkCollision:function()
+	{
+		for(j in humans)
+		{
+			var curr=humans[j];
+			if((this.y-lawn.rectHeight/2+16)==curr.y)
+			{
+				if((this.x+this.radius-16)>=curr.x)
+				{
+					var audio = new Audio('sounds/ouch1.wav');
+					audio.play();
+					curr.health-=this.attack;
+					this.attack=0;
+					if(curr.health<=0)
+					{
+						var audio = new Audio('sounds/oof.mp3');
+						audio.play();
+						humans.splice(j,1);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 };
 honeycomb=function(x,y)
 {
