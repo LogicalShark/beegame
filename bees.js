@@ -28,7 +28,7 @@ caveman.prototype=
 			for(i in bees)
 			{
 				var curr=bees[i];
-				if(curr.y==this.y){					
+				if(curr.y==this.y){
 					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 					{
 						if(this.lastAttack==false)
@@ -59,12 +59,12 @@ caveman.prototype=
 		if(ticks%2==0)
 		{
 			if(this.image.src=="images/caveman.png")
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/caveman2.png";
 			}
 			else
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/caveman2.png";
 			}
@@ -104,8 +104,7 @@ roman.prototype=
 				var curr=bees[i];
 				if(curr.hascollision)
 				{
-
-					if(curr.y==this.y){					
+					if(curr.y==this.y){
 						if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 						{
 							if(this.lastAttack==false)
@@ -137,12 +136,12 @@ roman.prototype=
 		if(ticks%20==0)
 		{
 			if(this.image.src=="images/roman.png")
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/roman2.png";
 			}
 			else
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/roman.png";
 			}
@@ -183,7 +182,7 @@ modernhuman.prototype=
 				if(curr.hascollision)
 				{
 					if(curr.y==this.y)
-					{				
+					{
 						if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 						{
 							if(this.lastAttack==false)
@@ -205,7 +204,7 @@ modernhuman.prototype=
 								}
 							}
 						}
-					}					
+					}
 				}
 			}
 		}
@@ -215,12 +214,12 @@ modernhuman.prototype=
 		if(ticks%2==0)
 		{
 			if(this.image.src=="images/modernhuman.png")
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/modernhuman2.png";
 			}
 			else
-			{				
+			{
 				this.image = new Image();
 				this.image.src="images/modernhuman.png";
 			}
@@ -295,8 +294,7 @@ Shot=function(x,y,dx,dy,attack)
 	this.y=y;
 	this.dx=dx;
 	this.dy=dy;
-	this.attack=attack;	
-
+	this.attack=attack;
 };
 Shot.prototype=
 {
@@ -349,7 +347,6 @@ Shot2=function(x,y,t,attack)
 	this.life=this.steps;
 	this.dy=-this.steps/2+1;
 	this.dx=(t.x-x-20)/this.steps;
-	
 };
 Shot2.prototype=
 {
@@ -416,10 +413,10 @@ honeybee.prototype=
 	},
 	checkShot:function()
 	{
-		if(Date.now()-this.lastShot>=5000){	
+		if(Date.now()-this.lastShot>=5000){
 			for(var j in humans)
 			{
-				if(humans[j].y==this.y){	
+				if(humans[j].y==this.y){
 					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
 					this.lastShot=Date.now();
 					break;

@@ -3,7 +3,7 @@
 <head>
 	<title>Bees Vs Humans</title>
 	<style>
-	canvas 
+	canvas
 	{
 		border:1px black solid;
 		position:absolute;
@@ -13,11 +13,11 @@
 </style>
 <script src="bees.js"></script>
 </head>
-<body>	
+<body>
 </body>
 </html>
 <script>
-	lawn = 
+	lawn =
 	{
 		background:"images/background.png",
 		numX:15,
@@ -48,34 +48,28 @@
 			context.drawImage(i,0,0);
 		}
 	};
-	
 	sidebar=
 	{
 		background:"grey",
 		draw:function()
 		{
-			
 			/* Draw sidebar */
 			context.beginPath();
 			context.rect(lawn.numX*lawn.rectWidth, 0, 3*lawn.rectWidth, canvas.height);
 			context.fillStyle = this.background;
 			context.fill();
-
 			/* Draw honey */
 			context.font = 'bold 35pt Calibri';
 			context.fillStyle = 'white';
 			context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
-			
 			context.font = 'italic 35pt Calibri';
 			context.fillStyle = 'yellow';
 			context.fillText(honey+" Honey", (lawn.numX*lawn.rectWidth+10), 85);
-			
 			/* Draw bees */
-			
 			for(i in this.bees)
 			{
 				var curr = this.bees[i];
-				curr.image.src="images/"+curr.img;								
+				curr.image.src="images/"+curr.img;
 				if(player.select[0]==curr.name)
 				{
 					context.beginPath();
@@ -92,7 +86,7 @@
 			{
 				id:"a",
 				image : new Image(),
-				img: "honeycomb.png",				
+				img: "honeycomb.png",
 				name:"honeycomb",
 				x:1250,
 				y:95,
@@ -115,9 +109,9 @@
 				img: "swarm.png",
 				name:"swarm",
 				x:1250,
-				y:95+180,	
+				y:95+180,
 				level: 1
-			},		
+			},
 			3:
 			{
 				id:"d",
@@ -140,15 +134,13 @@
 			}
 		}
 	};
-	
 	player=
 	{
 		select:false
 	};
-	
 	function init(l)
 	{
-		lawn = 
+		lawn =
 		{
 			background:"images/background.png",
 			numX:15,
@@ -179,34 +171,28 @@
 				context.drawImage(i,0,0);
 			}
 		};
-		
 		sidebar=
 		{
 			background:"grey",
 			draw:function()
 			{
-				
 				/* Draw sidebar */
 				context.beginPath();
 				context.rect(lawn.numX*lawn.rectWidth, 0, 3*lawn.rectWidth, canvas.height);
 				context.fillStyle = this.background;
 				context.fill();
-
 				/* Draw honey */
 				context.font = 'bold 35pt Calibri';
 				context.fillStyle = 'white';
 				context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
-				
 				context.font = 'italic 35pt Calibri';
 				context.fillStyle = 'yellow';
 				context.fillText(honey+" Honey", (lawn.numX*lawn.rectWidth+10), 85);
-				
 				/* Draw bees */
-				
 				for(i in this.bees)
 				{
 					var curr = this.bees[i];
-					curr.image.src="images/"+curr.img;								
+					curr.image.src="images/"+curr.img;
 					if(player.select[0]==curr.name)
 					{
 						context.beginPath();
@@ -223,7 +209,7 @@
 				{
 					id:"a",
 					image : new Image(),
-					img: "honeycomb.png",				
+					img: "honeycomb.png",
 					name:"honeycomb",
 					x:1250,
 					y:95,
@@ -246,9 +232,9 @@
 					img: "swarm.png",
 					name:"swarm",
 					x:1250,
-					y:95+180,	
+					y:95+180,
 					level: 1
-				},		
+				},
 				3:
 				{
 					id:"d",
@@ -271,7 +257,6 @@
 				}
 			}
 		};
-		
 		player=
 		{
 			select:false
@@ -280,12 +265,12 @@
 		if(level<3)
 		{
 			var audio = new Audio('sounds/bgm.mp3');
-			audio.play();					
+			audio.play();
 		}
 		else
 		{
 			var audio = new Audio('sounds/flight_of_the_bumblebee.mp3');
-			audio.play();		
+			audio.play();
 		}
 		canvas= document.createElement("canvas");
 		canvas.width=window.innerWidth;
@@ -315,7 +300,6 @@
 		shots = [];
 		lawn.fill(lawn.lawn);
 	};
-
 	function mainLoop()
 	{
 		if(win)
@@ -343,7 +327,6 @@
 			requestAnimationFrame(mainLoop);
 		}
 	};
-
 	function draw()
 	{
 		lawn.draw();
@@ -365,13 +348,12 @@
 		}
 		sidebar.draw();
 	};
-
 	function move()
 	{
 		for(i in humans)
 		{
 			if(typeof(i)!="undefined")
-			{			
+			{
 				humans[i].move();
 				if(humans[i].x<10)
 				{
@@ -405,8 +387,7 @@
 		{
 			shots[i].move();
 		}
-	};		
-
+	};
 	function check()
 	{
 		/*Check if bee shots or produce honey*/
@@ -434,25 +415,25 @@
 		/* Check if shot hit target */
 		for(i in shots)
 		{
-			var curr=shots[i];	
-			if(typeof(curr.checkCollision) === "function"){		
+			var curr=shots[i];
+			if(typeof(curr.checkCollision) === "function"){
 				if(curr.checkCollision())
 				{
 					shots.splice(i,1);
-					continue;	
+					continue;
 				}
 			}
 			if(typeof(curr.life) != "undefined")
 			{
 				if(curr.life<0)
 				{
-					curr.target.healt--;
-					if(curr.target.healt<=0)
+					curr.target.health-=curr.attack;
+					if(curr.target.health<=0)
 					{
 						humans.splice(humans.indexOf(curr.target),1);
 					}
 					shots.splice(i,1);
-					continue;	
+					continue;
 				}
 			}
 			if(curr.x-curr.radius>=lawn.numX*lawn.rectWidth)
@@ -467,7 +448,6 @@
 			humans[i].checkBite();
 		};
 	};
-
 	function seeder()
 	{
 		if(humans.length == 0 && Date.now()-firsthumanAdd>=70000)
@@ -507,12 +487,9 @@
 			lasthumanAdd=Date.now();
 		}
 	};
-
 	function click(data)
 	{
-
 		/* If click in sidebar */
-
 		for(j in sidebar.bees)
 		{
 			var curr=sidebar.bees[j];
@@ -536,9 +513,7 @@
 				}
 			}
 		}
-
 		/* If click in sun */
-
 		for(i in honeys)
 		{
 			var curr=honeys[i];
@@ -549,9 +524,7 @@
 				return true;
 			}
 		}
-
 		/* If click in lawn */
-
 		if((data.x>=0)&&(data.x<=lawn.numX*lawn.rectWidth)&&(data.y>=0)&&(data.y<=lawn.numY*lawn.rectHeight)&&(player.select))
 		{
 			var Xko=Math.floor(X/lawn.rectWidth);
@@ -563,11 +536,10 @@
 			bees.push(new window[player.select[0]](data.clientX,data.clientY));
 			lawn.lawn[Yko][Xko]=player.select[1];
 			var audio = new Audio('sounds/buzz.mp3');
-			audio.play();	
-			player.select=false;			
+			audio.play();
+			player.select=false;
 		}
 	};
-
 	function collision(a,b)
 	{
 		if((b.x+b.width>a.x)&&
@@ -576,10 +548,9 @@
 			(b.y<a.y+a.height))
 		{
 			return 1;
-		}  
+		}
 		return 0;
 	};
-
 	function clickIn(x,y,obj)
 	{
 		if((obj.x<x)&&(obj.x+obj.radius*2>x)&&(obj.y<y)&&(obj.y+obj.radius*2>y))
@@ -588,14 +559,11 @@
 		}
 		return 0;
 	};
-
 	window.onclick=function(d)
 	{
 		click(d);
 	};
-
 	init(1);
 	isPlaying=true;
 	mainLoop();
-
 </script>
