@@ -551,7 +551,6 @@ larva.prototype=
 		{
 			lawn[this.x][this.y] = "c";
 			bees.push(new swarm(this.x,this.y))
-			break;
 		}
 	}
 };
