@@ -54,6 +54,16 @@ caveman.prototype=
 			}
 		}
 	}
+	toggle:function()
+	{
+		if(Date.now()%200==0)
+		{
+			if(this.image.src=="images/caveman.png")
+				this.image.src="images/caveman2.png";
+			else
+				this.image.src="images/caveman.png";
+		}
+	}
 };
 roman=function(x,y)
 {
@@ -111,6 +121,16 @@ roman.prototype=
 			}
 		}
 	}
+	toggle:function()
+	{
+		if(Date.now()%200==0)
+		{
+			if(this.image.src=="images/caveman.png")
+				this.image.src="images/caveman2.png";
+			else
+				this.image.src="images/caveman.png";
+		}
+	}
 };
 modernhuman=function(x,y)
 {
@@ -166,6 +186,16 @@ modernhuman.prototype=
 					}
 				}
 			}
+		}
+	}
+	toggle:function()
+	{
+		if(Date.now()%200==0)
+		{
+			if(this.image.src=="images/caveman.png")
+				this.image.src="images/caveman2.png";
+			else
+				this.image.src="images/caveman.png";
 		}
 	}
 };
