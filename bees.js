@@ -166,28 +166,32 @@ modernhuman.prototype=
 			for(i in bees)
 			{
 				var curr=bees[i];
-				if(curr.y==this.y){					
-					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
-					{
-						if(this.lastAttack==false)
+				if(curr.hascollision)
+				{
+					if(curr.y==this.y)
+					{				
+						if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 						{
-							this.lastAttack=Date.now()-1000;
-						}
-						if(Date.now()-this.lastAttack>=1000)
-						{
-							var audio = new Audio('sounds/fight.mp3');
-							audio.play();
-							curr.health-=this.attack;
-							this.lastAttack=Date.now();
-							this.dx=0;
-							if(curr.health<=0)
+							if(this.lastAttack==false)
 							{
-								bees.splice(i,1);
-								this.lastAttack=false;
-								this.dx=-0.5;
+								this.lastAttack=Date.now()-1000;
+							}
+							if(Date.now()-this.lastAttack>=1000)
+							{
+								var audio = new Audio('sounds/fight.mp3');
+								audio.play();
+								curr.health-=this.attack;
+								this.lastAttack=Date.now();
+								this.dx=0;
+								if(curr.health<=0)
+								{
+									bees.splice(i,1);
+									this.lastAttack=false;
+									this.dx=-0.5;
+								}
 							}
 						}
-					}
+					}					
 				}
 			}
 		}
@@ -383,6 +387,7 @@ honeybee=function(x,y)
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/honeybee.png";
+	this.hascollision=true;
 };
 honeybee.prototype=
 {
@@ -413,6 +418,7 @@ miningbee=function(x,y)
 	this.health=10;
 	this.attack=1;
 	this.lastShot=Date.now();
+	this.hascollision=false;
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/miningbee.png";
@@ -429,7 +435,7 @@ miningbee.prototype=
 		if(Date.now()-this.lastShot>=5000){	
 			for(var j in humans)
 			{
-				if(humans[j].y==this.y && abs(humans[j].x-this.x)<=2*lawn.rectWidth)
+				if(humans[j].y==this.y && Math.abs(humans[j].x-this.x)<=2*lawn.rectWidth)
 				{	
 					shots.push(new Shot2(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
 					this.lastShot=Date.now();
@@ -450,6 +456,7 @@ swarm=function(x,y)
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/swarm.png";
+	this.hascollision=true;
 };
 swarm.prototype=
 {
@@ -488,6 +495,7 @@ bumblebee=function(x,y)
 	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/bumblebee.png";
+	this.hascollision=true;
 };
 bumblebee.prototype=
 {
