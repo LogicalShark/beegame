@@ -322,7 +322,6 @@ honeycomb.prototype=
 	{
 		if(Date.now()-this.lasthoneys>=10000)
 		{
-			console.log(pushed)
 			honeys.push(new honeyDrop(this.x,this.y,this.honeyVal));
 			this.lasthoneys=Date.now();
 		};
