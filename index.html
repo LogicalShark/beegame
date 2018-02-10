@@ -267,7 +267,10 @@
 		if(humans.length = 0 && Date.now()-firsthumanAdd>=160000)
 			win = true;
 		if(isBreak && Date.now()-lasthumanAdd>=10000)
+		{
 			isBreak = false;
+			lasthumanAdd=Date.now()-10000;
+		}
 		if(!isWave && Date.now()-firsthumanAdd>=150000)
 			isWave = true;
 		if(Date.now()-firsthumanAdd>=160000)
