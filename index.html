@@ -120,7 +120,7 @@
 		select:false
 	};
 	
-	function init()
+	function init(l)
 	{
 		canvas= document.createElement("canvas");
 		canvas.width=window.innerWidth;
@@ -130,11 +130,13 @@
 		isPlaying=false;
 		ticks = 0;
 		honey = 100;
-		level = 1;
+		level = l;
 		lasthumanAdd=Date.now();
 		firsthumanAdd=Date.now();
 		isWave = false;
 		isBreak = true;
+		win = false;
+		lose = false;
 		bees = [];
 		humans = [];
 		honeys = [];
@@ -153,6 +155,12 @@
 		if(isPlaying)
 		{
 			requestAnimationFrame(mainLoop);
+		}
+		if(win)
+		{
+			win = false;
+			level += 1;
+			init(level)
 		}
 	};
 
@@ -256,20 +264,27 @@
 
 	function seeder()
 	{
+		if(humans.length = 0 && Date.now()-firsthumanAdd>=160000)
+			win = true;
 		if(isBreak && Date.now()-lasthumanAdd>=10000)
 			isBreak = false;
 		if(!isWave && Date.now()-firsthumanAdd>=150000)
 			isWave = true;
-		if(!isBreak && isWave && Date.now()-lasthumanAdd>=3000)
+		if(Date.now()-firsthumanAdd>=160000)
+		{
+			isWave = false;
+			isBreak = true;
+		}
+		if(!isBreak && isWave && Date.now()-lasthumanAdd>=2000)
 		{
 			var riadok=Math.floor(Math.random()*10);
-			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			humans.push(new caveman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
 		else if(!isBreak && !isWave && Date.now()-lasthumanAdd>=10000)
 		{
 			var riadok=Math.floor(Math.random()*10);
-			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			humans.push(new caveman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
 	};
@@ -282,7 +297,6 @@
 		for(j in sidebar.bees)
 		{
 			var curr=sidebar.bees[j];
-			console.log(curr);
 			var X=data.clientX;
 			var Y=data.clientY;
 			var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
@@ -359,7 +373,7 @@
 		click(d);
 	};
 
-	init();
+	init(1);
 	isPlaying=true;
 	mainLoop();
 
