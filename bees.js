@@ -58,11 +58,16 @@ caveman.prototype=
 	{
 		if(Date.now()%20==0)
 		{
-			this.image = new Image();
 			if(this.image.src=="images/caveman.png")
+			{				
+				this.image = new Image();
 				this.image.src="images/caveman2.png";
+			}
 			else
-				this.image.src="images/caveman.png";
+			{				
+				this.image = new Image();
+				this.image.src="images/caveman2.png";
+			}
 			this.draw()
 		}
 	}
@@ -205,11 +210,16 @@ modernhuman.prototype=
 	{
 		if(Date.now()%20==0)
 		{
-			this.image = new Image();
 			if(this.image.src=="images/modernhuman.png")
+			{				
+				this.image = new Image();
 				this.image.src="images/modernhuman2.png";
+			}
 			else
-				this.image.src="images/modernhuman2.png";
+			{				
+				this.image = new Image();
+				this.image.src="images/modernhuman.png";
+			}
 			this.draw()
 		}
 	}
