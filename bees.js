@@ -185,7 +185,7 @@ Shot.prototype=
 {
 	draw:function()
 	{
-		context.drawImage(this.image,this.x,this.y,this.radius,this.radius);
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
 	move:function()
 	{
