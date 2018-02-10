@@ -3,7 +3,7 @@ honeycomb=function(x,y)
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
 	this.start=Date.now();
-	this.healt=6;
+	this.health=6;
 	honey-=this.cost;
 	this.honeyVal=50;
 	this.lasthoneys=Date.now();
@@ -31,7 +31,7 @@ honeybee=function(x,y)
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
 	this.start=Date.now();
-	this.healt=10;
+	this.health=10;
 	this.attack=1;
 	this.lastShot=Date.now();
 	honey-=this.cost;
@@ -61,7 +61,7 @@ honeybee.prototype=
 };
 caveman=function(x,y)
 {
-	this.healt=3;
+	this.health=3;
 	this.x=x;
 	this.y=y;
 	this.dx=-0.5;
@@ -98,10 +98,10 @@ caveman.prototype=
 						}
 						if(Date.now()-this.lastAttack>=1000)
 						{
-							curr.healt-=this.attack;
+							curr.health-=this.attack;
 							this.lastAttack=Date.now();
 							this.dx=0;
-							if(curr.healt<=0)
+							if(curr.health<=0)
 							{
 								bees.splice(i,1);
 								this.lastAttack=false;
@@ -148,9 +148,9 @@ Shot.prototype=
 				if((this.x+this.radius-16)>=curr.x)
 				{
 					console.log("AHHH!!");
-					curr.healt-=this.attack;
+					curr.health-=this.attack;
 					this.attack=0;
-					if(curr.healt<=0)
+					if(curr.health<=0)
 					{
 						humans.splice(j,1);
 					}
@@ -229,7 +229,7 @@ swarm=function(x,y)
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
 	this.start=Date.now();
-	this.healt=10;
+	this.health=10;
 	this.attack=1;
 	this.lastShot=Date.now();
 	honey-=this.cost;
