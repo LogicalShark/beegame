@@ -130,8 +130,11 @@
 		isPlaying=false;
 		ticks = 0;
 		honey = 100;
-		level = 0;
+		level = 1;
 		lasthumanAdd=Date.now();
+		firsthumanAdd=Date.now();
+		isWave = false;
+		isBreak = true;
 		bees = [];
 		humans = [];
 		honeys = [];
@@ -253,10 +256,17 @@
 
 	function seeder()
 	{
-
-		/* Add new human every 10 seconds*/
-
-		if(Date.now()-lasthumanAdd>=10000)
+		if(isBreak && Date.now()-lasthumanAdd>=10000)
+			isBreak = false;
+		if(!isWave && Date.now()-firsthumanAdd>=150000)
+			isWave = true;
+		if(!isBreak && isWave && Date.now()-lasthumanAdd>=3000)
+		{
+			var riadok=Math.floor(Math.random()*10);
+			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			lasthumanAdd=Date.now();
+		}
+		else if(!isBreak && Date.now()-lasthumanAdd>=10000)
 		{
 			var riadok=Math.floor(Math.random()*10);
 			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
