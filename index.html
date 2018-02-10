@@ -167,7 +167,13 @@
 
 	function mainLoop()
 	{
-
+		if(win)
+		{
+			win = false;
+			level += 1;
+			init(level);
+			mainLoop();
+		}
 		check();
 		seeder();
 		draw();
@@ -176,13 +182,6 @@
 		if(isPlaying)
 		{
 			requestAnimationFrame(mainLoop);
-		}
-		if(win)
-		{
-			win = false;
-			level += 1;
-			init(level);
-			mainLoop();
 		}
 	};
 
@@ -297,7 +296,7 @@
 
 	function seeder()
 	{
-		if(humans.length == 0 && Date.now()-firsthumanAdd>=160000)
+		if(humans.length == 0 && Date.now()-firsthumanAdd>=70000)
 			win = true;
 		if(isBreak && Date.now()-lasthumanAdd>=10000)
 		{
@@ -311,7 +310,7 @@
 			isWave = false;
 			isBreak = true;
 		}
-		if(!isBreak && isWave && Date.now()-lasthumanAdd>=2000)
+		if(!isBreak && isWave && Date.now()-lasthumanAdd>=1000)
 		{
 			var riadok=Math.floor(Math.random()*10);
 			if(level==1)
