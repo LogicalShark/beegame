@@ -8,7 +8,7 @@ slnecnica=function(x,y)
 	this.honeys=50;
 	this.lasthoney=Date.now();
 	this.image = new Image();
-	this.image.src="images/honeyflowerHD.png";
+	this.image.src="images/SunflowerHD.png";
 };
 slnecnica.prototype=
 {
@@ -36,7 +36,7 @@ larva=function(x,y)
 	this.lastShot=Date.now();
 	slnk-=this.cost;
 	this.image = new Image();
-	this.image.src="images/PeashooterHD.png";
+	this.image.src="images/honeybee.png";
 };
 larva.prototype=
 {
