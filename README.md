@@ -3,4 +3,4 @@ Bees Vs. Humans
 
 Bees
 
-Partially based on https://github.com/G43riko/PlantsVsZombies
+Inspired by https://github.com/G43riko/PlantsVsZombies and Bee Movie (2007)
