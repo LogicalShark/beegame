@@ -334,9 +334,9 @@
 		draw();
 		move();
 		ticks++;
-		for(var h in humans)
+		for(h in humans)
 		{
-			h.toggle();
+			humans[h].toggle();
 		}
 		if(isPlaying)
 		{
