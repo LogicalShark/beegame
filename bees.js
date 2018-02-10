@@ -37,7 +37,7 @@ caveman.prototype=
 						}
 						if(Date.now()-this.lastAttack>=1000)
 						{
-							var audio = new Audio('sounds/fight.mp3');
+							var audio = new Audio('sounds/chewing.mp3');
 							audio.play();
 							curr.health-=this.attack;
 							this.lastAttack=Date.now();
@@ -289,7 +289,7 @@ Shot.prototype=
 			{
 				if((this.x+this.radius-16)>=curr.x)
 				{
-					var audio = new Audio('sounds/ouch1.mp3');
+					var audio = new Audio('sounds/ouch1.wav');
 					audio.play();
 					curr.health-=this.attack;
 					this.attack=0;
