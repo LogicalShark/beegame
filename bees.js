@@ -56,7 +56,7 @@ caveman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%200==0)
+		if(Date.now()%20==0)
 		{
 			this.image = new Image();
 			if(this.image.src=="images/caveman.png")
@@ -125,7 +125,7 @@ roman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%200==0)
+		if(Date.now()%20==0)
 		{
 			this.image = new Image();
 			if(this.image.src=="images/roman.png")
@@ -194,7 +194,7 @@ modernhuman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%200==0)
+		if(Date.now()%20==0)
 		{
 			this.image = new Image();
 			if(this.image.src=="images/modernhuman.png")
