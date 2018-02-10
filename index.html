@@ -335,7 +335,9 @@
 					humanspassed += 1;
 					if(humanspassed>5)
 					{
+						context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 						init(level);
+						isPlaying = true
 						mainLoop();
 					}
 				}

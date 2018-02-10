@@ -58,6 +58,7 @@ caveman.prototype=
 	{
 		if(Date.now()%200==0)
 		{
+			this.image = new Image();
 			if(this.image.src=="images/caveman.png")
 				this.image.src="images/caveman2.png";
 			else
@@ -126,6 +127,7 @@ roman.prototype=
 	{
 		if(Date.now()%200==0)
 		{
+			this.image = new Image();
 			if(this.image.src=="images/roman.png")
 				this.image.src="images/roman2.png";
 			else
@@ -194,6 +196,7 @@ modernhuman.prototype=
 	{
 		if(Date.now()%200==0)
 		{
+			this.image = new Image();
 			if(this.image.src=="images/modernhuman.png")
 				this.image.src="images/modernhuman2.png";
 			else
