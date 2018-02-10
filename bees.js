@@ -172,7 +172,7 @@ roman.prototype=
 Shot=function(x,y,dx,dy,attack)
 {
 	this.image=new Image();
-	this.image.src="stinger.png"
+	this.image.src="images/stinger.png"
 	this.x=x;
 	this.y=y;
 	this.dx=dx;
@@ -184,10 +184,7 @@ Shot.prototype=
 {
 	draw:function()
 	{
-		context.beginPath();
-		context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-		context.fillStyle = 'yellow';
-		context.fill();
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
 	move:function()
 	{
@@ -331,7 +328,7 @@ Shot2=function(x,y,t,attack)
 	this.target=t;
 	this.attack=attack;
 	this.tx=t.x+t.dx*this.steps;
-	this.radius=5;
+	this.image="images/stinger.png";
 	this.ty=t.y;
 	this.life=this.steps;
 	this.dy=-this.steps/2+1;//dy;
@@ -343,10 +340,7 @@ Shot2.prototype=
 	steps:40,
 	draw:function()
 	{
-		context.beginPath();
-		context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-		context.fillStyle = 'black';
-		context.fill();
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
 	move:function()
 	{
