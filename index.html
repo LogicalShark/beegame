@@ -18,6 +18,7 @@
 </html>
 <script>
 	level = 0;
+	honey = 0;
 	lawn = 
 	{
 		background:"green",
@@ -72,7 +73,7 @@
 			
 			for(i in this.bees)
 			{
-				var curr =this.bees[i];
+				var curr = this.bees[i];
 				curr.image.src="images/"+curr.img;								
 				if(player.select[0]==curr.name)
 				{
@@ -93,7 +94,7 @@
 				img: "SunflowerHD.png",				
 				name:"slnecnica",
 				x:1250,
-				y:65,
+				y:95,
 			},
 			1:
 			{
@@ -102,7 +103,7 @@
 				img: "honeybee.png",
 				name:"kvetina",
 				x:1250,
-				y:65+90,
+				y:95+90,
 			},
 			2:
 			{
@@ -111,7 +112,7 @@
 				img: "KernelPultHD.png",
 				name:"kukurica",
 				x:1250,
-				y:65+180,	
+				y:95+180,	
 			}
 		}
 	};
