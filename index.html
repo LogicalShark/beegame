@@ -209,6 +209,7 @@
 			humans[i].move();
 			if(humans[i].x<0)
 			{
+				humans.splice(i,1);
 				humanspassed += 1;
 				if(humanspassed>5)
 				{
