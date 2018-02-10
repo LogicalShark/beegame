@@ -5,10 +5,10 @@ slnecnica=function(x,y)
 	this.start=Date.now();
 	this.healt=6;
 	slnk-=this.cost;
-	this.honeys=50;
-	this.lasthoney=Date.now();
+	this.honeyss=50;
+	this.lasthoneys=Date.now();
 	this.image = new Image();
-	this.image.src="images/honeycomb.png";
+	this.image.src="images/honeyscomb.png";
 };
 slnecnica.prototype=
 {
@@ -17,12 +17,12 @@ slnecnica.prototype=
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
-	checkGetinghoney:function()
+	checkGetinghoneys:function()
 	{
-		if(Date.now()-this.lasthoney>=10000)
+		if(Date.now()-this.lasthoneys>=10000)
 		{
-			honeys.push(new honey(this.x,this.y,this.honeys));
-			this.lasthoney=Date.now();
+			honeyss.push(new honeys(this.x,this.y,this.honey));
+			this.lasthoneys=Date.now();
 		};
 	}
 };
@@ -161,9 +161,9 @@ Shot.prototype=
 		return false;
 	}
 };
-honey=function(x,y,honeyS)
+honeys=function(x,y,honeyVal)
 {
-	this.honeys=honeyS;
+	this.honey=honeyVal;
 	this.radius=20;
 	this.x=(x+lawn.rectWidth/2);
 	this.y=(y+this.radius);
@@ -174,7 +174,7 @@ honey=function(x,y,honeyS)
 	this.image.src="images/honey.png";
 	this.rotation=0;
 };
-honey.prototype=
+honeys.prototype=
 {
 	draw:function()
 	{
