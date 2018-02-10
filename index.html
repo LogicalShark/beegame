@@ -17,6 +17,7 @@
 </body>
 </html>
 <script>
+	level = 0;
 	lawn = 
 	{
 		background:"green",
@@ -59,10 +60,13 @@
 			context.fill();
 
 			/* Draw honey */
+			context.font = 'italic 35pt Calibri';
+			context.fillStyle = 'red';
+			context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
 			
 			context.font = 'italic 35pt Calibri';
 			context.fillStyle = 'blue';
-			context.fillText("slnk: "+slnk, (lawn.numX*lawn.rectWidth+10), 45);
+			context.fillText("honey: "+honey, (lawn.numX*lawn.rectWidth+10), 85);
 			
 			/* Draw bees */
 			
@@ -126,7 +130,7 @@
 		 context = canvas.getContext('2d');
 		 isPlaying=false;
 		 ticks=0;
-		 slnk=100;
+		 honey=100;
 		 lasthumanAdd=Date.now();
 		 bees=[];
 		 humans=[];
@@ -292,7 +296,7 @@
 					}
 					else
 					{
-						if(slnk-window[curr["name"]].prototype.cost>=0)
+						if(honey-window[curr["name"]].prototype.cost>=0)
 						{
 							player.select=[curr["name"],curr["id"]];
 							break;
@@ -308,7 +312,7 @@
 				var curr=honey[i];
 				if(clickIn(X,Y,curr))
 				{
-					slnk+=curr.honey;
+					honey+=curr.honey;
 					honey.splice(i,1);
 					return true;
 				}
