@@ -93,6 +93,7 @@
 				name:"honeycomb",
 				x:1250,
 				y:95,
+				level: 1
 			},
 			1:
 			{
@@ -102,6 +103,7 @@
 				name:"honeybee",
 				x:1250,
 				y:95+90,
+				level: 1
 			},
 			2:
 			{
@@ -111,7 +113,18 @@
 				name:"swarm",
 				x:1250,
 				y:95+180,	
+				level: 2
 			}
+			3:
+			{
+				id:"d",
+				image : new Image(),
+				img: "bumblebee.png",
+				name:"bumblebee",
+				x:1250,
+				y:95+270,
+				level: 3
+			},
 		}
 	};
 	
@@ -162,6 +175,7 @@
 			win = false;
 			level += 1;
 			init(level);
+			mainLoop();
 		}
 	};
 
@@ -195,6 +209,11 @@
 			if(humans[i].x<0)
 			{
 				humanspassed += 1;
+				if(humanspassed>5)
+				{
+					init(level);
+					mainLoop();
+				}
 			}
 		}
 		for(i in honeys)
