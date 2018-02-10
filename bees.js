@@ -215,7 +215,7 @@ honeys.prototype=
 		this.dy-=this.dy*Math.random()/100;
 		this.dx-=this.dx*Math.random()/100;
 	},
-	checkLife:function()
+	checkTime:function()
 	{
 		if(Date.now()-this.startTime>=8000)
 		{

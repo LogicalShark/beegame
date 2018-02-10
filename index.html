@@ -211,7 +211,7 @@
 		{
 			if(honeys[i].checkTime())
 			{
-				honey.splice(i,1);
+				honeys.splice(i,1);
 			}
 		};
 		i=0;
@@ -300,8 +300,8 @@
 			var curr=honeys[i];
 			if(clickIn(X,Y,curr))
 			{
-				honey+=curr.honey;
-				honey.splice(i,1);
+				honey+=curr.honeyVal;
+				honeys.splice(i,1);
 				return true;
 			}
 		}
