@@ -86,9 +86,9 @@ walker.prototype=
 	{
 		if(lawn.lawn[Math.floor(this.y/lawn.rectHeight)][Math.floor(this.x/lawn.rectWidth)]!=0)
 		{
-			for(i in plants)
+			for(i in bees)
 			{
-				var curr=plants[i];
+				var curr=bees[i];
 				if(curr.y==this.y){					
 					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 					{
@@ -103,7 +103,7 @@ walker.prototype=
 							this.dx=0;
 							if(curr.healt<=0)
 							{
-								plants.splice(i,1);
+								bees.splice(i,1);
 								this.lastAttack=false;
 								this.dx=-0.5;
 							}
