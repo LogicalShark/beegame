@@ -433,8 +433,8 @@ miningbee=function(x,y)
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
 	this.start=Date.now();
-	this.health=10;
-	this.attack=1;
+	this.health=8;
+	this.attack=2;
 	this.lastShot=Date.now();
 	this.hascollision=false;
 	honey-=this.cost;
@@ -455,7 +455,7 @@ miningbee.prototype=
 			var curr = humans[i];
 			if(curr.y==this.y && Math.abs(humans[i].x-this.x)<=2*lawn.rectWidth)
 			{
-				if(Date.now()-this.lastShot>1000)
+				if(Date.now()-this.lastShot>500)
 				{
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();

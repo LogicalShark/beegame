@@ -194,6 +194,7 @@
 		{
 			win = false;
 			level += 1;
+			context.drawImage("images/win.png",0,0,lawn.numX*lawn.rectWidth,lawn.numY*lawn.rectHeight);
 			init(level);
 			isPlaying = true;
 			mainLoop();
@@ -203,6 +204,10 @@
 		draw();
 		move();
 		ticks++;
+		for i in humans
+		{
+			i.toggle();
+		}
 		if(isPlaying)
 		{
 			requestAnimationFrame(mainLoop);
