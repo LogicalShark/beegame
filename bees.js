@@ -171,8 +171,9 @@ roman.prototype=
 };
 Shot=function(x,y,dx,dy,attack)
 {
+	this.radius=5;
 	this.image=new Image();
-	this.image.src="images/stinger.png"
+	this.image.src="images/stinger.png";
 	this.x=x;
 	this.y=y;
 	this.dx=dx;
@@ -184,14 +185,14 @@ Shot.prototype=
 {
 	draw:function()
 	{
-		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+		context.drawImage(this.image,this.x,this.y,this.radius,this.radius);
 	},
 	move:function()
 	{
 		this.x+=this.dx;
 		this.y+=this.dy;
 	},
-	checkColision:function()
+	checkCollision:function()
 	{
 		for(j in humans)
 		{
@@ -200,7 +201,7 @@ Shot.prototype=
 			{
 				if((this.x+this.radius-16)>=curr.x)
 				{
-					console.log("AHHH!!");
+					console.log("Ouch");
 					curr.health-=this.attack;
 					this.attack=0;
 					if(curr.health<=0)
@@ -231,11 +232,11 @@ honeyDrop.prototype=
 {
 	draw:function()
 	{
-	 	//context.save();
-		//context.rotate(this.rotation);
-		//context.translate((this.x+this.radius), (this.y+this.radius));
+	 	context.save();
+		context.rotate(this.rotation);
+		context.translate((this.x+this.radius), (this.y+this.radius));
 		context.drawImage(this.image,this.x,this.y,this.radius*2,this.radius*2);
-		//context.restore();
+		context.restore();
 		
 	},
 	move:function()
@@ -295,7 +296,7 @@ swarm.prototype=
 	cost:100,
 	draw:function()
 	{
-		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+		context.drawImage(this.image,this.x,this.y,this.radius,this.radius);
 	},
 	checkShot:function()
 	{
@@ -328,10 +329,12 @@ Shot2=function(x,y,t,attack)
 	this.target=t;
 	this.attack=attack;
 	this.tx=t.x+t.dx*this.steps;
-	this.image="images/stinger.png";
+	this.radius=5;
+	this.image=new Image();
+	this.image.src="images/stinger.png";
 	this.ty=t.y;
 	this.life=this.steps;
-	this.dy=-this.steps/2+1;//dy;
+	this.dy=-this.steps/2+1;
 	this.dx=(t.x-x-20)/this.steps;
 	
 };
@@ -370,17 +373,4 @@ bumblebee.prototype=
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
-	checkShot:function()
-	{
-		// if(Date.now()-this.lastShot>=5000){	
-		// 	for( var j in humans )
-		// 	{
-		// 		if(humans[j].y==this.y){	
-		// 			shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
-		// 			this.lastShot=Date.now();
-		// 			break;
-		// 		}
-		// 	}
-		// }
-	}
 };
