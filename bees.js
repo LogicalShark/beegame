@@ -28,25 +28,28 @@ caveman.prototype=
 			for(i in bees)
 			{
 				var curr=bees[i];
-				if(curr.y==this.y){
-					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
-					{
-						if(this.lastAttack==false)
+				if(curr.hascollision)
+				{
+					if(curr.y==this.y){
+						if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 						{
-							this.lastAttack=Date.now()-1000;
-						}
-						if(Date.now()-this.lastAttack>=1000)
-						{
-							var audio = new Audio('sounds/chewing.mp3');
-							audio.play();
-							curr.health-=this.attack;
-							this.lastAttack=Date.now();
-							this.dx=0;
-							if(curr.health<=0)
+							if(this.lastAttack==false)
 							{
-								bees.splice(i,1);
-								this.lastAttack=false;
-								this.dx=-0.5;
+								this.lastAttack=Date.now()-1000;
+							}
+							if(Date.now()-this.lastAttack>=1000)
+							{
+								var audio = new Audio('sounds/chewing.mp3');
+								audio.play();
+								curr.health-=this.attack;
+								this.lastAttack=Date.now();
+								this.dx=0;
+								if(curr.health<=0)
+								{
+									bees.splice(i,1);
+									this.lastAttack=false;
+									this.dx=-0.5;
+								}
 							}
 						}
 					}
