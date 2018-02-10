@@ -232,11 +232,11 @@ honeyDrop.prototype=
 {
 	draw:function()
 	{
-	 	context.save();
-		context.rotate(this.rotation);
-		context.translate((this.x+this.radius), (this.y+this.radius));
+	 	// context.save();
+		// context.rotate(this.rotation);
+		// context.translate((this.x+this.radius), (this.y+this.radius));
 		context.drawImage(this.image,this.x,this.y,this.radius*2,this.radius*2);
-		context.restore();
+		// context.restore();
 		
 	},
 	move:function()
