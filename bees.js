@@ -305,7 +305,7 @@ swarm.prototype=
 			var curr = humans[i];
 			if(curr.y==this.y)
 			{
-				if(!this.rapidFire && Date.now()-this.lastShot>7000)
+				if(this.rapidFire>=3 && Date.now()-this.lastShot>7000)
 				{
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
