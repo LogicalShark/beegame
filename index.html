@@ -392,7 +392,7 @@
 		}
 	};
 
-	function colision(a,b)
+	function collision(a,b)
 	{
 		if((b.x+b.width>a.x)&&
 			(b.y+b.height>a.y)&&
@@ -406,7 +406,7 @@
 
 	function clickIn(x,y,obj)
 	{
-		if((obj.x<x)&&(obj.x+obj.polomer*2>x)&&(obj.y<y)&&(obj.y+obj.polomer*2>y))
+		if((obj.x<x)&&(obj.x+obj.radius*2>x)&&(obj.y<y)&&(obj.y+obj.radius*2>y))
 		{
 			return 1;
 		}
