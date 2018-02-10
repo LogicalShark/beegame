@@ -26,7 +26,7 @@ slnecnica.prototype=
 		};
 	}
 };
-larva=function(x,y)
+honeybee=function(x,y)
 {
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
@@ -38,7 +38,7 @@ larva=function(x,y)
 	this.image = new Image();
 	this.image.src="images/honeybee.png";
 };
-larva.prototype=
+honeybee.prototype=
 {
 	cost:50,
 	draw:function()
@@ -224,7 +224,7 @@ honeys.prototype=
 		return false;
 	}
 };
-honeybee=function(x,y)
+kernel=function(x,y)
 {
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
@@ -236,7 +236,7 @@ honeybee=function(x,y)
 	this.image = new Image();
 	this.image.src="images/KernelPultHD.png";
 };
-honeybee.prototype=
+kernel.prototype=
 {
 	cost:100,
 	draw:function()
