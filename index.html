@@ -148,6 +148,7 @@
 	
 	function init(l)
 	{
+		level = l;
 		if(level<3)
 		{
 			var audio = new Audio('sounds/bgm.mp3');
@@ -166,7 +167,6 @@
 		isPlaying=false;
 		ticks = 0;
 		honey = 100;
-		level = l;
 		lasthumanAdd=Date.now();
 		firsthumanAdd=Date.now();
 		if(level!=3)
