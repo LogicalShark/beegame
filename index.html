@@ -326,16 +326,23 @@
 	{
 		for(i in humans)
 		{
-			humans[i].move();
-			if(humans[i].x<0)
+			if(typeof(i)!="undefined")
+			{			
+				humans[i].move();
+				if(humans[i].x<0)
+				{
+					humans.splice(i,1);
+					humanspassed += 1;
+					if(humanspassed>5)
+					{
+						init(level);
+						mainLoop();
+					}
+				}
+			}
+			else if(typeof(humans)!="undefined")
 			{
 				humans.splice(i,1);
-				humanspassed += 1;
-				if(humanspassed>5)
-				{
-					init(level);
-					mainLoop();
-				}
 			}
 		}
 		for(i in honeys)
