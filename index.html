@@ -68,16 +68,16 @@
 			
 			for(i in this.bees)
 			{
-				var toto =this.bees[i];
-				toto.image.src="images/"+toto.img;								
-				if(player.select[0]==toto.name)
+				var curr =this.bees[i];
+				curr.image.src="images/"+curr.img;								
+				if(player.select[0]==curr.name)
 				{
 					context.beginPath();
-					context.rect(toto.x, toto.y, lawn.rectWidth, lawn.rectHeight);
+					context.rect(curr.x, curr.y, lawn.rectWidth, lawn.rectHeight);
 					context.fillStyle = '#444';
 					context.fill();
 				}
-				context.drawImage(toto.image,toto.x,toto.y,lawn.rectWidth,lawn.rectHeight);
+				context.drawImage(curr.image,curr.x,curr.y,lawn.rectWidth,lawn.rectHeight);
 			}
 		},
 		
@@ -227,28 +227,28 @@
 
 			for(i in shots)
 			{
-				var toto=shots[i];	
-				if(typeof(toto.checkColision) === "function"){		
-					if(toto.checkColision())
+				var curr=shots[i];	
+				if(typeof(curr.checkColision) === "function"){		
+					if(curr.checkColision())
 					{
 						shots.splice(i,1);
 						continue;	
 					}
 				}
-				if(typeof(toto.life) != "undefined")
+				if(typeof(curr.life) != "undefined")
 				{
-					if(toto.life<0)
+					if(curr.life<0)
 					{
-						toto.target.healt--;
-						if(toto.target.healt<=0)
+						curr.target.healt--;
+						if(curr.target.healt<=0)
 						{
-							humans.splice(humans.indexOf(toto.target),1);
+							humans.splice(humans.indexOf(curr.target),1);
 						}
 						shots.splice(i,1);
 						continue;	
 					}
 				}
-				if(toto.x-toto.polomer>=lawn.numX*lawn.rectWidth)
+				if(curr.x-curr.polomer>=lawn.numX*lawn.rectWidth)
 				{
 					shots.splice(i,1);
 				}
@@ -282,22 +282,22 @@
 
 			for(j in sidebar.bees)
 			{
-				var toto=sidebar.bees[j];
+				var curr=sidebar.bees[j];
 				var X=data.clientX;
 				var Y=data.clientY;
-				var click=((X>toto.x)&&(X<toto.x+lawn.rectWidth)&&(Y>toto.y)&&(Y<toto.y+lawn.rectHeight));
+				var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
 				if(click)
 				{
-					if(player.select[0]==toto["name"])
+					if(player.select[0]==curr["name"])
 					{
 						player.select=false;
 						break;
 					}
 					else
 					{
-						if(slnk-window[toto["name"]].prototype.cena>=0)
+						if(slnk-window[curr["name"]].prototype.cost>=0)
 						{
-							player.select=[toto["name"],toto["id"]];
+							player.select=[curr["name"],curr["id"]];
 							break;
 						}
 					}
@@ -308,10 +308,10 @@
 
 			for(i in honey)
 			{
-				var toto=honey[i];
-				if(clickIn(X,Y,toto))
+				var curr=honey[i];
+				if(clickIn(X,Y,curr))
 				{
-					slnk+=toto.honey;
+					slnk+=curr.honey;
 					honey.splice(i,1);
 					return true;
 				}
