@@ -254,6 +254,16 @@
 					x:1250,
 					y:95+360,
 					level: 1
+				},
+				5:
+				{
+					id:"f",
+					image : new Image(),
+					img: "larva.png",
+					name:"larva",
+					x:1250,
+					y:95+450,
+					level: 1
 				}
 			}
 		};
@@ -465,7 +475,7 @@
 			isWave = false;
 			isBreak = true;
 		}
-		if(!isBreak && isWave && Date.now()-lasthumanAdd>=1000)
+		if(!isBreak && isWave && Date.now()-lasthumanAdd>=750)
 		{
 			var riadok=Math.floor(Math.random()*10);
 			if(level==1)
@@ -476,7 +486,7 @@
 				humans.push(new modernhuman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
-		else if(!isBreak && !isWave && Date.now()-lasthumanAdd>=10000)
+		else if(!isBreak && !isWave && Date.now()-lasthumanAdd>=9000)
 		{
 			var riadok=Math.floor(Math.random()*10);
 			if(level==1)

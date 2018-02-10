@@ -455,7 +455,7 @@ miningbee.prototype=
 			var curr = humans[i];
 			if(curr.y==this.y && Math.abs(humans[i].x-this.x)<=2*lawn.rectWidth)
 			{
-				if(Date.now()-this.lastShot>1000)
+				if(Date.now()-this.lastShot>2500)
 				{
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
@@ -524,4 +524,33 @@ bumblebee.prototype=
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
+};
+larva=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=5;
+	this.attack=0;
+	this.lastShot=Date.now();
+	honey-=this.cost;
+	this.image = new Image();
+	this.image.src="images/larva.png";
+	this.hascollision=true;
+};
+larva.prototype=
+{
+	cost:25,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkShot:function()
+	{
+		if(Date.now()-this.lastShot>20000)
+		{
+			lawn[this.x][this.y] = "c";
+			break;
+		}
+	}
 };
