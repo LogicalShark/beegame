@@ -450,20 +450,6 @@ miningbee.prototype=
 	},
 	checkShot:function()
 	{
-		if(Date.now()-this.lastShot>=5000){	
-			for(var j in humans)
-			{
-				if(humans[j].y==this.y && Math.abs(humans[j].x-this.x)<=2*lawn.rectWidth)
-				{	
-					shots.push(new Shot2(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
-					this.lastShot=Date.now();
-					break;
-				}
-			}
-		}
-	}
-	checkShot:function()
-	{
 		for(var i in humans)
 		{
 			var curr = humans[i];
