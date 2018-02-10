@@ -127,11 +127,16 @@ roman.prototype=
 	{
 		if(Date.now()%20==0)
 		{
-			this.image = new Image();
 			if(this.image.src=="images/roman.png")
+			{				
+				this.image = new Image();
 				this.image.src="images/roman2.png";
+			}
 			else
+			{				
+				this.image = new Image();
 				this.image.src="images/roman.png";
+			}
 			this.draw()
 		}
 	}
