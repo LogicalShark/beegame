@@ -48,9 +48,9 @@ larva.prototype=
 	checkShot:function()
 	{
 		if(Date.now()-this.lastShot>=5000){	
-			for( var j in zombies )
+			for( var j in humans )
 			{
-				if(zombies[j].y==this.y){	
+				if(humans[j].y==this.y){	
 					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
 					this.lastShot=Date.now();
 					break;
@@ -69,7 +69,7 @@ walker=function(x,y)
 	this.lastAttack=false;
 	this.attack=1;
 	this.image = new Image();
-	this.image.src="images/ZombieHD.png";
+	this.image.src="images/caveman.png";
 };
 walker.prototype=
 {
@@ -140,19 +140,19 @@ Shot.prototype=
 	},
 	checkColision:function()
 	{
-		for(j in zombies)
+		for(j in humans)
 		{
-			var curr=zombies[j];
+			var curr=humans[j];
 			if((this.y-lawn.rectHeight/2+16)==curr.y)
 			{
 				if((this.x+this.radius-16)>=curr.x)
 				{
-					console.log("náraz!!");
+					console.log("AHHH!!");
 					curr.healt-=this.attack;
 					this.attack=0;
 					if(curr.healt<=0)
 					{
-						zombies.splice(j,1);
+						humans.splice(j,1);
 					}
 					return true;
 				}
@@ -171,7 +171,7 @@ honey=function(x,y,honeyS)
 	this.dy=Math.random()*1-0.5;
 	this.startTime=Date.now();
 	this.image = new Image();
-	this.image.src="images/honeyHD.png";
+	this.image.src="images/honey.png";
 	this.rotation=0;
 };
 honey.prototype=
@@ -245,9 +245,9 @@ honeybee.prototype=
 	},
 	checkShot:function()
 	{
-		for( var i in zombies)
+		for( var i in humans)
 		{
-			var curr = zombies[i];
+			var curr = humans[i];
 			if(curr.y==this.y)
 			{
 				if(Date.now()-this.lastShot>7000)
