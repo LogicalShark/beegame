@@ -1,4 +1,4 @@
-PlantsVsZombies
+Bees Vs. Humans
 ===============
 
-Simpla Javascript Plants vs Zombies game
+Bees
