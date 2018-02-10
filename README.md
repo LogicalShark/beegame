@@ -1,4 +1,4 @@
-Bees Vs. Humans
+Bee Game
 ===============
 
 Bees
