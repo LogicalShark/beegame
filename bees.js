@@ -62,6 +62,7 @@ caveman.prototype=
 				this.image.src="images/caveman2.png";
 			else
 				this.image.src="images/caveman.png";
+			this.draw()
 		}
 	}
 };
@@ -129,6 +130,7 @@ roman.prototype=
 				this.image.src="images/roman2.png";
 			else
 				this.image.src="images/roman.png";
+			this.draw()
 		}
 	}
 };
@@ -196,6 +198,7 @@ modernhuman.prototype=
 				this.image.src="images/modernhuman2.png";
 			else
 				this.image.src="images/modernhuman2.png";
+			this.draw()
 		}
 	}
 };
