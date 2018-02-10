@@ -1,4 +1,4 @@
-slnecnica=function(x,y)
+honeycomb=function(x,y)
 {
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
@@ -10,7 +10,7 @@ slnecnica=function(x,y)
 	this.image = new Image();
 	this.image.src="images/honeycomb.png";
 };
-slnecnica.prototype=
+honeycomb.prototype=
 {
 	cost:25,
 	draw:function()
@@ -59,7 +59,7 @@ honeybee.prototype=
 		}
 	}
 };
-walker=function(x,y)
+caveman=function(x,y)
 {
 	this.healt=3;
 	this.x=x;
@@ -71,7 +71,7 @@ walker=function(x,y)
 	this.image = new Image();
 	this.image.src="images/caveman.png";
 };
-walker.prototype=
+caveman.prototype=
 {
 	draw:function()
 	{
