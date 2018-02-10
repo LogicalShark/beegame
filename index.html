@@ -136,70 +136,70 @@
 	function init(l)
 	{
 		lawn = 
-	{
-		background:"green",
-		numX:15,
-		numY:10,
-		rectWidth:80,
-		rectHeight:80,
-		lawn:[],
-		fill:function(pole)
 		{
-			for(var i=0;i<this.numY;i++)
+			background:"green",
+			numX:15,
+			numY:10,
+			rectWidth:80,
+			rectHeight:80,
+			lawn:[],
+			fill:function(pole)
 			{
-				var helper=[];
-				for(var j=0;j<this.numX;j++)
+				for(var i=0;i<this.numY;i++)
 				{
-					helper.push(0);
-				}
-				pole.push(helper);
-			};
-		},
-		draw:function()
-		{
-			context.beginPath();
-			context.rect(0, 0, this.numX*this.rectWidth, canvas.height);
-			context.fillStyle = this.background;
-			context.fill();
-		}
-	};
-	
-	sidebar=
-	{
-		background:"grey",
-		draw:function()
-		{
-			
-			/* Draw sidebar */
-			context.beginPath();
-			context.rect(lawn.numX*lawn.rectWidth, 0, 2.5*lawn.rectWidth, canvas.height);
-			context.fillStyle = this.background;
-			context.fill();
-
-			/* Draw honey */
-			context.font = 'italic 35pt Calibri';
-			context.fillStyle = 'red';
-			context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
-			
-			context.font = 'italic 35pt Calibri';
-			context.fillStyle = 'blue';
-			context.fillText(honey+" H", (lawn.numX*lawn.rectWidth+10), 85);
-			
-			/* Draw bees */
-			
-			for(i in this.bees)
+					var helper=[];
+					for(var j=0;j<this.numX;j++)
+					{
+						helper.push(0);
+					}
+					pole.push(helper);
+				};
+			},
+			draw:function()
 			{
-				var curr = this.bees[i];
-				curr.image.src="images/"+curr.img;								
-				if(player.select[0]==curr.name)
-				{
-					context.beginPath();
-					context.rect(curr.x, curr.y, lawn.rectWidth, lawn.rectHeight);
-					context.fillStyle = '#444';
-					context.fill();
-				}
-				context.drawImage(curr.image,curr.x,curr.y,lawn.rectWidth,lawn.rectHeight);
+				context.beginPath();
+				context.rect(0, 0, this.numX*this.rectWidth, canvas.height);
+				context.fillStyle = this.background;
+				context.fill();
 			}
+		};
+		
+		sidebar=
+		{
+			background:"grey",
+			draw:function()
+			{
+				
+				/* Draw sidebar */
+				context.beginPath();
+				context.rect(lawn.numX*lawn.rectWidth, 0, 2.5*lawn.rectWidth, canvas.height);
+				context.fillStyle = this.background;
+				context.fill();
+
+				/* Draw honey */
+				context.font = 'italic 35pt Calibri';
+				context.fillStyle = 'red';
+				context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
+				
+				context.font = 'italic 35pt Calibri';
+				context.fillStyle = 'blue';
+				context.fillText(honey+" H", (lawn.numX*lawn.rectWidth+10), 85);
+				
+				/* Draw bees */
+				
+				for(i in this.bees)
+				{
+					var curr = this.bees[i];
+					curr.image.src="images/"+curr.img;								
+					if(player.select[0]==curr.name)
+					{
+						context.beginPath();
+						context.rect(curr.x, curr.y, lawn.rectWidth, lawn.rectHeight);
+						context.fillStyle = '#444';
+						context.fill();
+					}
+					context.drawImage(curr.image,curr.x,curr.y,lawn.rectWidth,lawn.rectHeight);
+				}
 			},
 			bees:
 			{
@@ -245,7 +245,6 @@
 				}
 			}
 		};
-		
 		player=
 		{
 			select:false
@@ -287,6 +286,7 @@
 			win = false;
 			level += 1;
 			init(level);
+			isPlaying = true;
 			mainLoop();
 		}
 		check();
