@@ -8,7 +8,7 @@ slnecnica=function(x,y)
 	this.honeys=50;
 	this.lasthoney=Date.now();
 	this.image = new Image();
-	this.image.src="images/SunflowerHD.png";
+	this.image.src="images/honeycomb.png";
 };
 slnecnica.prototype=
 {
