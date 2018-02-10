@@ -325,26 +325,23 @@
 
 		for(j in sidebar.bees)
 		{
-			if(bees.level<=level)
+			var curr=sidebar.bees[j];
+			var X=data.clientX;
+			var Y=data.clientY;
+			var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
+			if(click)
 			{
-				var curr=sidebar.bees[j];
-				var X=data.clientX;
-				var Y=data.clientY;
-				var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
-				if(click)
+				if(player.select[0]==curr["name"])
 				{
-					if(player.select[0]==curr["name"])
+					player.select=false;
+					break;
+				}
+				else
+				{
+					if(honey>=window[curr["name"]].prototype.cost)
 					{
-						player.select=false;
+						player.select=[curr["name"],curr["id"]];
 						break;
-					}
-					else
-					{
-						if(honey>=window[curr["name"]].prototype.cost)
-						{
-							player.select=[curr["name"],curr["id"]];
-							break;
-						}
 					}
 				}
 			}
