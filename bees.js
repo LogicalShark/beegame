@@ -125,10 +125,10 @@ roman.prototype=
 	{
 		if(Date.now()%200==0)
 		{
-			if(this.image.src=="images/caveman.png")
-				this.image.src="images/caveman2.png";
+			if(this.image.src=="images/roman.png")
+				this.image.src="images/roman2.png";
 			else
-				this.image.src="images/caveman.png";
+				this.image.src="images/roman.png";
 		}
 	}
 };
@@ -192,10 +192,10 @@ modernhuman.prototype=
 	{
 		if(Date.now()%200==0)
 		{
-			if(this.image.src=="images/caveman.png")
-				this.image.src="images/caveman2.png";
+			if(this.image.src=="images/modernhuman.png")
+				this.image.src="images/modernhuman2.png";
 			else
-				this.image.src="images/caveman.png";
+				this.image.src="images/modernhuman2.png";
 		}
 	}
 };
@@ -428,8 +428,6 @@ swarm.prototype=
 				if(Date.now()-this.lastShot>5000)
 				{
 					shots.push(new Shot(this.x,this.y,curr,this.attack));
-					shots.push(new Shot(this.x,this.y+lawn.rectHeight,curr,this.attack));
-					shots.push(new Shot(this.x,this.y-lawn.rectHeight,curr,this.attack));
 					this.lastShot=Date.now();
 					break;
 				}
