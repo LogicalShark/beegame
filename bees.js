@@ -21,6 +21,7 @@ honeycomb.prototype=
 	{
 		if(Date.now()-this.lasthoneys>=10000)
 		{
+			console.log(pushed)
 			honeys.push(new honeyDrop(this.x,this.y,this.honeyVal));
 			this.lasthoneys=Date.now();
 		};
@@ -280,7 +281,7 @@ honeyDrop=function(x,y,honeyValue)
 	this.dy=Math.random()*1-0.5;
 	this.startLife=Date.now();
 	this.image = new Image();
-	this.image.src="images/honey.png";
+	this.image.src="images/SunHD.png";
 	this.rotation=0;
 };
 honeyDrop.prototype=

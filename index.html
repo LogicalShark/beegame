@@ -146,7 +146,14 @@
 		level = l;
 		lasthumanAdd=Date.now();
 		firsthumanAdd=Date.now();
-		isWave = false;
+		if(level!=3)
+		{
+			isWave = false;
+		}
+		else
+		{
+			isWave = true;
+		}
 		isBreak = false;
 		win = false;
 		lose = false;
