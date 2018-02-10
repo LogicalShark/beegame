@@ -71,7 +71,7 @@ caveman.prototype=
 				this.image = new Image();
 				this.image.src="images/caveman2.png";
 			}
-			this.draw()
+			this.prototype.draw();
 		}
 	}
 };
@@ -148,7 +148,7 @@ roman.prototype=
 				this.image = new Image();
 				this.image.src="images/roman.png";
 			}
-			this.draw()
+			this.prototype.draw();
 		}
 	}
 };
@@ -226,7 +226,7 @@ modernhuman.prototype=
 				this.image = new Image();
 				this.image.src="images/modernhuman.png";
 			}
-			this.draw()
+			this.prototype.draw();
 		}
 	}
 };
@@ -549,8 +549,9 @@ larva.prototype=
 	{
 		if(Date.now()-this.lastShot>20000)
 		{
-			lawn.lawn[this.x][this.y] = "c";
-			bees.push(new swarm(this.x,this.y))
+			lawn.lawn[Math.floor(this.y/lawn.rectHeight)][Math.floor(this.x/lawn.rectWidth)] = "c";
+			var s = new swarm(this.x,this.y);
+			bees.push(s.prototype.draw());
 		}
 	}
 };
