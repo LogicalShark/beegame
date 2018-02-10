@@ -549,7 +549,7 @@ larva.prototype=
 	{
 		if(Date.now()-this.lastShot>20000)
 		{
-			lawn[this.x][this.y] = "c";
+			lawn.lawn[this.x][this.y] = "c";
 			bees.push(new swarm(this.x,this.y))
 		}
 	}
