@@ -169,6 +169,61 @@ roman.prototype=
 		}
 	}
 };
+modernhuman=function(x,y)
+{
+	this.health=10;
+	this.x=x;
+	this.y=y;
+	this.dx=-0.5;
+	this.dy=0;
+	this.lastAttack=false;
+	this.attack=5;
+	this.image = new Image();
+	this.image.src="images/modernhuman.png";
+};
+modernhuman.prototype=
+{
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	move:function()
+	{
+		this.x+=this.dx;
+		this.y+=this.dy;
+	},
+	checkBite:function()
+	{
+		if(lawn.lawn[Math.floor(this.y/lawn.rectHeight)][Math.floor(this.x/lawn.rectWidth)]!=0)
+		{
+			for(i in bees)
+			{
+				var curr=bees[i];
+				if(curr.y==this.y){					
+					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
+					{
+						if(this.lastAttack==false)
+						{
+							this.lastAttack=Date.now()-1000;
+						}
+						if(Date.now()-this.lastAttack>=1000)
+						{
+							curr.health-=this.attack;
+							this.lastAttack=Date.now();
+							this.dx=0;
+							if(curr.health<=0)
+							{
+								bees.splice(i,1);
+								this.lastAttack=false;
+								this.dx=-0.5;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
 Shot=function(x,y,dx,dy,attack)
 {
 	this.radius=5;
