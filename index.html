@@ -17,8 +17,6 @@
 </body>
 </html>
 <script>
-	level = 0;
-	honey = 0;
 	lawn = 
 	{
 		background:"green",
@@ -124,245 +122,242 @@
 	
 	function init()
 	{
-		 canvas= document.createElement("canvas");
-		 canvas.width=window.innerWidth;
-		 canvas.height=window.innerHeight;
-		 document.body.appendChild(canvas);
-		 context = canvas.getContext('2d');
-		 isPlaying=false;
-		 ticks=0;
-		 honey=100;
-		 lasthumanAdd=Date.now();
-		 bees=[];
-		 humans=[];
-		 honey=[];
-		 shots=[];
-		 lawn.fill(lawn.lawn);
+		canvas= document.createElement("canvas");
+		canvas.width=window.innerWidth;
+		canvas.height=window.innerHeight;
+		document.body.appendChild(canvas);
+		context = canvas.getContext('2d');
+		isPlaying=false;
+		ticks=0;
+		honey=100;
+		level = 0;
+		lasthumanAdd=Date.now();
+		bees=[];
+		humans=[];
+		honey=[];
+		shots=[];
+		lawn.fill(lawn.lawn);
+	};
+
+	function mainLoop()
+	{
+
+		check();
+		seeder();
+		draw();
+		move();
+		ticks++;
+		if(isPlaying)
+		{
+			requestAnimationFrame(mainLoop);
+		}
+	};
+
+	function draw()
+	{
+		lawn.draw();
+		for(i in bees)
+		{
+			bees[i].draw();
+		}
+		for(i in humans)
+		{
+			humans[i].draw();
+		}
+		for(i in shots)
+		{
+			shots[i].draw();
+		}
+		for(i in honey)
+		{
+			honey[i].draw();
+		}
+		sidebar.draw();
+	};
+
+	function move()
+	{
+		for(i in humans)
+		{
+			humans[i].move();
+		}
+		for(i in honey)
+		{
+			honey[i].move();
+		}
+		for(i in shots)
+		{
+			shots[i].move();
+		}
+	};		
+
+	function check()
+	{
+
+		/*Check if bee shots or produce honey*/
+
+		for(i in bees)
+		{
+			if(typeof(bees[i].checkGetingSun) === "function")
+			{
+				bees[i].checkGetingSun();
+			}
+			if(typeof(bees[i].checkShot) === "function")
+			{
+				bees[i].checkShot();
+			}
 		};
+		i=0;
 
-		function mainLoop()
+		/* Check honey life */
+
+		for(i in honey)
 		{
-
-			check();
-			seeder();
-			draw();
-			move();
-			ticks++;
-
-			if(isPlaying)
+			if(honey[i].checkLife())
 			{
-				requestAnimationFrame(mainLoop);
+				honey.splice(i,1);
 			}
 		};
+		i=0;
 
-		function draw()
+		/* Check if shot hit target */
+
+		for(i in shots)
 		{
-			lawn.draw();
-			for(i in bees)
-			{
-				bees[i].draw();
-			}
-			for(i in humans)
-			{
-				humans[i].draw();
-			}
-			for(i in shots)
-			{
-				shots[i].draw();
-			}
-			for(i in honey)
-			{
-				honey[i].draw();
-			}
-			sidebar.draw();
-		};
-
-		function move()
-		{
-			for(i in humans)
-			{
-				humans[i].move();
-			}
-			for(i in honey)
-			{
-				honey[i].move();
-			}
-
-			/* Move shots */
-
-			for(i in shots)
-			{
-				shots[i].move();
-			}
-		};		
-
-		function check()
-		{
-
-			/*Check if bee shots or produce honey*/
-
-			for(i in bees)
-			{
-				if(typeof(bees[i].checkGetingSun) === "function")
-				{
-					bees[i].checkGetingSun();
-				}
-				if(typeof(bees[i].checkShot) === "function")
-				{
-					bees[i].checkShot();
-				}
-			};
-			i=0;
-
-			/* Check honey life */
-
-			for(i in honey)
-			{
-				if(honey[i].checkLife())
-				{
-					honey.splice(i,1);
-				}
-			};
-			i=0;
-
-			/* Check if shot hit target */
-
-			for(i in shots)
-			{
-				var curr=shots[i];	
-				if(typeof(curr.checkColision) === "function"){		
-					if(curr.checkColision())
-					{
-						shots.splice(i,1);
-						continue;	
-					}
-				}
-				if(typeof(curr.life) != "undefined")
-				{
-					if(curr.life<0)
-					{
-						curr.target.healt--;
-						if(curr.target.healt<=0)
-						{
-							humans.splice(humans.indexOf(curr.target),1);
-						}
-						shots.splice(i,1);
-						continue;	
-					}
-				}
-				if(curr.x-curr.polomer>=lawn.numX*lawn.rectWidth)
+			var curr=shots[i];	
+			if(typeof(curr.checkColision) === "function"){		
+				if(curr.checkColision())
 				{
 					shots.splice(i,1);
+					continue;	
 				}
-			};
-			i=0;
-
-
-			for(i in humans)
+			}
+			if(typeof(curr.life) != "undefined")
 			{
-				humans[i].checkBite();
-			};
-		};
-
-		function seeder()
-		{
-
-			/* Add new human every 10 seconds*/
-
-			if(Date.now()-lasthumanAdd>=10000)
+				if(curr.life<0)
+				{
+					curr.target.healt--;
+					if(curr.target.healt<=0)
+					{
+						humans.splice(humans.indexOf(curr.target),1);
+					}
+					shots.splice(i,1);
+					continue;	
+				}
+			}
+			if(curr.x-curr.polomer>=lawn.numX*lawn.rectWidth)
 			{
-				var riadok=Math.floor(Math.random()*10);
-				humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
-				lasthumanAdd=Date.now();
+				shots.splice(i,1);
 			}
 		};
+		i=0;
 
-		function click(data)
+
+		for(i in humans)
 		{
+			humans[i].checkBite();
+		};
+	};
 
-			/* If click in sidebar */
+	function seeder()
+	{
 
-			for(j in sidebar.bees)
+		/* Add new human every 10 seconds*/
+
+		if(Date.now()-lasthumanAdd>=10000)
+		{
+			var riadok=Math.floor(Math.random()*10);
+			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			lasthumanAdd=Date.now();
+		}
+	};
+
+	function click(data)
+	{
+
+		/* If click in sidebar */
+
+		for(j in sidebar.bees)
+		{
+			var curr=sidebar.bees[j];
+			var X=data.clientX;
+			var Y=data.clientY;
+			var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
+			if(click)
 			{
-				var curr=sidebar.bees[j];
-				var X=data.clientX;
-				var Y=data.clientY;
-				var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
-				if(click)
+				if(player.select[0]==curr["name"])
 				{
-					if(player.select[0]==curr["name"])
+					player.select=false;
+					break;
+				}
+				else
+				{
+					if(honey-window[curr["name"]].prototype.cost>=0)
 					{
-						player.select=false;
+						player.select=[curr["name"],curr["id"]];
 						break;
 					}
-					else
-					{
-						if(honey-window[curr["name"]].prototype.cost>=0)
-						{
-							player.select=[curr["name"],curr["id"]];
-							break;
-						}
-					}
 				}
 			}
+		}
 
-			/* If click in sun */
+		/* If click in sun */
 
-			for(i in honey)
-			{
-				var curr=honey[i];
-				if(clickIn(X,Y,curr))
-				{
-					honey+=curr.honey;
-					honey.splice(i,1);
-					return true;
-				}
-			}
-
-			/* If click in lawn */
-
-			if((data.x>=0)&&(data.x<=lawn.numX*lawn.rectWidth)&&(data.y>=0)&&(data.y<=lawn.numY*lawn.rectHeight)&&(player.select))
-			{
-				var Xko=Math.floor(X/lawn.rectWidth);
-				var Yko=Math.floor(Y/lawn.rectHeight);
-				if(lawn.lawn[Yko][Xko]!=0)
-				{
-					return false;
-				}
-				bees.push(new window[player.select[0]](data.clientX,data.clientY));
-				lawn.lawn[Yko][Xko]=player.select[1];
-				player.select=false;			
-			}
-		};
-
-		function colision(a,b)
+		for(i in honey)
 		{
-			if((b.x+b.width>a.x)&&
-				(b.y+b.height>a.y)&&
-				(b.x<a.x+a.width)&&
-				(b.y<a.y+a.height))
+			var curr=honey[i];
+			if(clickIn(X,Y,curr))
 			{
-				return 1;
-			}  
-			return 0;
-		};
-
-		function clickIn(x,y,obj)
-		{
-			if((obj.x<x)&&(obj.x+obj.polomer*2>x)&&(obj.y<y)&&(obj.y+obj.polomer*2>y))
-			{
-				return 1;
+				honey+=curr.honey;
+				honey.splice(i,1);
+				return true;
 			}
-			return 0;
-		};
+		}
 
-		window.onclick=function(d)
+		/* If click in lawn */
+
+		if((data.x>=0)&&(data.x<=lawn.numX*lawn.rectWidth)&&(data.y>=0)&&(data.y<=lawn.numY*lawn.rectHeight)&&(player.select))
 		{
-			click(d);
-		};
+			var Xko=Math.floor(X/lawn.rectWidth);
+			var Yko=Math.floor(Y/lawn.rectHeight);
+			if(lawn.lawn[Yko][Xko]!=0)
+			{
+				return false;
+			}
+			bees.push(new window[player.select[0]](data.clientX,data.clientY));
+			lawn.lawn[Yko][Xko]=player.select[1];
+			player.select=false;			
+		}
+	};
 
-		init();
-		isPlaying=true;
-		mainLoop();
+	function colision(a,b)
+	{
+		if((b.x+b.width>a.x)&&
+			(b.y+b.height>a.y)&&
+			(b.x<a.x+a.width)&&
+			(b.y<a.y+a.height))
+		{
+			return 1;
+		}  
+		return 0;
+	};
 
-	</script>
+	function clickIn(x,y,obj)
+	{
+		if((obj.x<x)&&(obj.x+obj.polomer*2>x)&&(obj.y<y)&&(obj.y+obj.polomer*2>y))
+		{
+			return 1;
+		}
+		return 0;
+	};
+
+	window.onclick=function(d)
+	{
+		click(d);
+	};
+
+	init();
+	isPlaying=true;
+	mainLoop();
+
+</script>
