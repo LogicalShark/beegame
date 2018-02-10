@@ -453,7 +453,7 @@ miningbee.prototype=
 		for(var i in humans)
 		{
 			var curr = humans[i];
-			if(curr.y==this.y && Math.abs(humans[j].x-this.x)<=2*lawn.rectWidth)
+			if(curr.y==this.y && Math.abs(humans[i].x-this.x)<=2*lawn.rectWidth)
 			{
 				if(Date.now()-this.lastShot>1000)
 				{
