@@ -56,7 +56,7 @@ caveman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%20==0)
+		if(ticks%2==0)
 		{
 			if(this.image.src=="images/caveman.png")
 			{				
@@ -102,25 +102,29 @@ roman.prototype=
 			for(i in bees)
 			{
 				var curr=bees[i];
-				if(curr.y==this.y){					
-					if(Math.floor(curr.x/40)==Math.floor(this.x/40))
-					{
-						if(this.lastAttack==false)
+				if(curr.hascollision)
+				{
+
+					if(curr.y==this.y){					
+						if(Math.floor(curr.x/40)==Math.floor(this.x/40))
 						{
-							this.lastAttack=Date.now()-1000;
-						}
-						if(Date.now()-this.lastAttack>=1000)
-						{
-							var audio = new Audio('sounds/fight.mp3');
-							audio.play();
-							curr.health-=this.attack;
-							this.lastAttack=Date.now();
-							this.dx=0;
-							if(curr.health<=0)
+							if(this.lastAttack==false)
 							{
-								bees.splice(i,1);
-								this.lastAttack=false;
-								this.dx=-0.5;
+								this.lastAttack=Date.now()-1000;
+							}
+							if(Date.now()-this.lastAttack>=1000)
+							{
+								var audio = new Audio('sounds/fight.mp3');
+								audio.play();
+								curr.health-=this.attack;
+								this.lastAttack=Date.now();
+								this.dx=0;
+								if(curr.health<=0)
+								{
+									bees.splice(i,1);
+									this.lastAttack=false;
+									this.dx=-0.5;
+								}
 							}
 						}
 					}
@@ -130,7 +134,7 @@ roman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%20==0)
+		if(ticks%20==0)
 		{
 			if(this.image.src=="images/roman.png")
 			{				
@@ -208,7 +212,7 @@ modernhuman.prototype=
 	},
 	toggle:function()
 	{
-		if(Date.now()%20==0)
+		if(ticks%2==0)
 		{
 			if(this.image.src=="images/modernhuman.png")
 			{				
@@ -361,31 +365,6 @@ Shot2.prototype=
 		this.dy++;
 		this.life--;
 	},
-	checkCollision:function()
-	{
-		for(j in humans)
-		{
-			var curr=humans[j];
-			if((this.y-lawn.rectHeight/2+16)==curr.y)
-			{
-				if((this.x+this.radius-16)>=curr.x)
-				{
-					var audio = new Audio('sounds/ouch1.wav');
-					audio.play();
-					curr.health-=this.attack;
-					this.attack=0;
-					if(curr.health<=0)
-					{
-						var audio = new Audio('sounds/oof.mp3');
-						audio.play();
-						humans.splice(j,1);
-					}
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 };
 honeycomb=function(x,y)
 {
@@ -477,6 +456,22 @@ miningbee.prototype=
 				if(humans[j].y==this.y && Math.abs(humans[j].x-this.x)<=2*lawn.rectWidth)
 				{	
 					shots.push(new Shot2(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
+					this.lastShot=Date.now();
+					break;
+				}
+			}
+		}
+	}
+	checkShot:function()
+	{
+		for(var i in humans)
+		{
+			var curr = humans[i];
+			if(curr.y==this.y && Math.abs(humans[j].x-this.x)<=2*lawn.rectWidth)
+			{
+				if(Date.now()-this.lastShot>1000)
+				{
+					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
 					break;
 				}
