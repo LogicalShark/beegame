@@ -17,7 +17,7 @@ honeycomb.prototype=
 	{
 		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
 	},
-	checkGetinghoneys:function()
+	checkGettingHoneys:function()
 	{
 		if(Date.now()-this.lasthoneys>=10000)
 		{
@@ -281,7 +281,7 @@ honeyDrop=function(x,y,honeyValue)
 	this.dy=Math.random()*1-0.5;
 	this.startLife=Date.now();
 	this.image = new Image();
-	this.image.src="images/SunHD.png";
+	this.image.src="images/honey.png";
 	this.rotation=0;
 };
 honeyDrop.prototype=

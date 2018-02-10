@@ -239,9 +239,9 @@
 		/*Check if bee shots or produce honey*/
 		for(i in bees)
 		{
-			if(typeof(bees[i].checkGetingSun) === "function")
+			if(typeof(bees[i].checkGettingHoneys) === "function")
 			{
-				bees[i].checkGetingSun();
+				bees[i].checkGettingHoneys();
 			}
 			if(typeof(bees[i].checkShot) === "function")
 			{
