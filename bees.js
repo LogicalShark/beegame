@@ -302,3 +302,36 @@ Shot2.prototype=
 		console.log(this.life);
 	},
 };
+bumblebee=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=50;
+	this.attack=0;
+	this.lastShot=Date.now();
+	honey-=this.cost;
+	this.image = new Image();
+	this.image.src="images/bumblebee.png";
+};
+bumblebee.prototype=
+{
+	cost:50,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkShot:function()
+	{
+		// if(Date.now()-this.lastShot>=5000){	
+		// 	for( var j in humans )
+		// 	{
+		// 		if(humans[j].y==this.y){	
+		// 			shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
+		// 			this.lastShot=Date.now();
+		// 			break;
+		// 		}
+		// 	}
+		// }
+	}
+};
