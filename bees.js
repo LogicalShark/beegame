@@ -224,7 +224,7 @@ honeys.prototype=
 		return false;
 	}
 };
-kernel=function(x,y)
+swarm=function(x,y)
 {
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
@@ -234,9 +234,9 @@ kernel=function(x,y)
 	this.lastShot=Date.now();
 	honey-=this.cost;
 	this.image = new Image();
-	this.image.src="images/KernelPultHD.png";
+	this.image.src="images/swarm.png";
 };
-kernel.prototype=
+swarm.prototype=
 {
 	cost:100,
 	draw:function()

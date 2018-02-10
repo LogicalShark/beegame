@@ -107,8 +107,8 @@
 			{
 				id:"c",
 				image : new Image(),
-				img: "KernelPultHD.png",
-				name:"kernel",
+				img: "swarm.png",
+				name:"swarm",
 				x:1250,
 				y:95+180,	
 			}
@@ -266,7 +266,7 @@
 			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
-		else if(!isBreak && Date.now()-lasthumanAdd>=10000)
+		else if(!isBreak && !isWave && Date.now()-lasthumanAdd>=10000)
 		{
 			var riadok=Math.floor(Math.random()*10);
 			humans.push(new walker((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
