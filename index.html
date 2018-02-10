@@ -135,6 +135,121 @@
 	
 	function init(l)
 	{
+		lawn = 
+	{
+		background:"green",
+		numX:15,
+		numY:10,
+		rectWidth:80,
+		rectHeight:80,
+		lawn:[],
+		fill:function(pole)
+		{
+			for(var i=0;i<this.numY;i++)
+			{
+				var helper=[];
+				for(var j=0;j<this.numX;j++)
+				{
+					helper.push(0);
+				}
+				pole.push(helper);
+			};
+		},
+		draw:function()
+		{
+			context.beginPath();
+			context.rect(0, 0, this.numX*this.rectWidth, canvas.height);
+			context.fillStyle = this.background;
+			context.fill();
+		}
+	};
+	
+	sidebar=
+	{
+		background:"grey",
+		draw:function()
+		{
+			
+			/* Draw sidebar */
+			context.beginPath();
+			context.rect(lawn.numX*lawn.rectWidth, 0, 2.5*lawn.rectWidth, canvas.height);
+			context.fillStyle = this.background;
+			context.fill();
+
+			/* Draw honey */
+			context.font = 'italic 35pt Calibri';
+			context.fillStyle = 'red';
+			context.fillText("Level "+level, (lawn.numX*lawn.rectWidth+10), 45);
+			
+			context.font = 'italic 35pt Calibri';
+			context.fillStyle = 'blue';
+			context.fillText(honey+" H", (lawn.numX*lawn.rectWidth+10), 85);
+			
+			/* Draw bees */
+			
+			for(i in this.bees)
+			{
+				var curr = this.bees[i];
+				curr.image.src="images/"+curr.img;								
+				if(player.select[0]==curr.name)
+				{
+					context.beginPath();
+					context.rect(curr.x, curr.y, lawn.rectWidth, lawn.rectHeight);
+					context.fillStyle = '#444';
+					context.fill();
+				}
+				context.drawImage(curr.image,curr.x,curr.y,lawn.rectWidth,lawn.rectHeight);
+			}
+			},
+			bees:
+			{
+				0:
+				{
+					id:"a",
+					image : new Image(),
+					img: "honeycomb.png",				
+					name:"honeycomb",
+					x:1250,
+					y:95,
+					level: 1
+				},
+				1:
+				{
+					id:"b",
+					image : new Image(),
+					img: "honeybee.png",
+					name:"honeybee",
+					x:1250,
+					y:95+90,
+					level: 1
+				},
+				2:
+				{
+					id:"c",
+					image : new Image(),
+					img: "swarm.png",
+					name:"swarm",
+					x:1250,
+					y:95+180,	
+					level: 1
+				},
+				3:
+				{
+					id:"d",
+					image : new Image(),
+					img: "bumblebee.png",
+					name:"bumblebee",
+					x:1250,
+					y:95+270,
+					level: 1
+				}
+			}
+		};
+		
+		player=
+		{
+			select:false
+		};
 		canvas= document.createElement("canvas");
 		canvas.width=window.innerWidth;
 		canvas.height=window.innerHeight;
