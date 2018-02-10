@@ -310,6 +310,8 @@
 				humans.push(new caveman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			if(level==2)
 				humans.push(new roman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			if(level==3)
+				humans.push(new modernhuman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
 		else if(!isBreak && !isWave && Date.now()-lasthumanAdd>=10000)
@@ -319,6 +321,8 @@
 				humans.push(new caveman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			if(level==2)
 				humans.push(new roman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
+			if(level==3)
+				humans.push(new modernhuman((lawn.numX*lawn.rectWidth+40),riadok*lawn.rectHeight));
 			lasthumanAdd=Date.now();
 		}
 	};
