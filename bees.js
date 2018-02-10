@@ -21,7 +21,7 @@ honeycomb.prototype=
 	{
 		if(Date.now()-this.lasthoneys>=10000)
 		{
-			honeys.push(new honeys(this.x,this.y,this.honeyVal));
+			honeys.push(new honeyDrop(this.x,this.y,this.honeyVal));
 			this.lasthoneys=Date.now();
 		};
 	}
@@ -162,7 +162,7 @@ Shot.prototype=
 		return false;
 	}
 };
-honeys=function(x,y,honeyValue)
+honeyDrop=function(x,y,honeyValue)
 {
 	this.honeyVal=honeyValue;
 	this.radius=20;
@@ -175,7 +175,7 @@ honeys=function(x,y,honeyValue)
 	this.image.src="images/honey.png";
 	this.rotation=0;
 };
-honeys.prototype=
+honeyDrop.prototype=
 {
 	draw:function()
 	{
