@@ -21,7 +21,7 @@
 	{
 		background:"green",
 		numX:15,
-		numY:10,
+		numY:8,
 		rectWidth:80,
 		rectHeight:80,
 		lawn:[],
@@ -335,7 +335,7 @@
 					humanspassed += 1;
 					if(humanspassed>5)
 					{
-						context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+						context.drawImage("images/lose.png",0,0,lawn.numX*lawn.rectWidth,lawn.numY*lawn.rectHeight);
 						init(level);
 						isPlaying = true
 						mainLoop();
