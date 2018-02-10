@@ -236,6 +236,10 @@
 					humanspassed += 1;
 					if(humanspassed>5)
 					{
+						if(level==3)
+						{
+							window.location.href = "https://savebees.org/";
+						}
 						context.drawImage("images/lose.png",0,0,lawn.numX*lawn.rectWidth,lawn.numY*lawn.rectHeight);
 						init(level);
 						isPlaying = true
