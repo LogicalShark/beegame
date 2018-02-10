@@ -4,11 +4,11 @@ slnecnica=function(x,y)
 	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
 	this.start=Date.now();
 	this.healt=6;
-	slnk-=this.cost;
-	this.honeyss=50;
+	honey-=this.cost;
+	this.honeyVal=50;
 	this.lasthoneys=Date.now();
 	this.image = new Image();
-	this.image.src="images/honeyscomb.png";
+	this.image.src="images/honeycomb.png";
 };
 slnecnica.prototype=
 {
@@ -21,7 +21,7 @@ slnecnica.prototype=
 	{
 		if(Date.now()-this.lasthoneys>=10000)
 		{
-			honeyss.push(new honeys(this.x,this.y,this.honey));
+			honeys.push(new honeys(this.x,this.y,this.honeyVal));
 			this.lasthoneys=Date.now();
 		};
 	}
@@ -34,7 +34,7 @@ larva=function(x,y)
 	this.healt=10;
 	this.attack=1;
 	this.lastShot=Date.now();
-	slnk-=this.cost;
+	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/honeybee.png";
 };
@@ -161,9 +161,9 @@ Shot.prototype=
 		return false;
 	}
 };
-honeys=function(x,y,honeyVal)
+honeys=function(x,y,honeyValue)
 {
-	this.honey=honeyVal;
+	this.honeyVal=honeyValue;
 	this.radius=20;
 	this.x=(x+lawn.rectWidth/2);
 	this.y=(y+this.radius);
@@ -232,7 +232,7 @@ honeybee=function(x,y)
 	this.healt=10;
 	this.attack=1;
 	this.lastShot=Date.now();
-	slnk-=this.cost;
+	honey-=this.cost;
 	this.image = new Image();
 	this.image.src="images/KernelPultHD.png";
 };
