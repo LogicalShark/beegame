@@ -53,7 +53,7 @@ caveman.prototype=
 				}
 			}
 		}
-	}
+	},
 	toggle:function()
 	{
 		if(Date.now()%200==0)
@@ -120,7 +120,7 @@ roman.prototype=
 				}
 			}
 		}
-	}
+	},
 	toggle:function()
 	{
 		if(Date.now()%200==0)
@@ -187,7 +187,7 @@ modernhuman.prototype=
 				}
 			}
 		}
-	}
+	},
 	toggle:function()
 	{
 		if(Date.now()%200==0)
