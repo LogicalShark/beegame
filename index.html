@@ -65,7 +65,7 @@
 			
 			context.font = 'italic 35pt Calibri';
 			context.fillStyle = 'blue';
-			context.fillText("honey: "+honey, (lawn.numX*lawn.rectWidth+10), 85);
+			context.fillText(str(honey)+" honey", (lawn.numX*lawn.rectWidth+10), 85);
 			
 			/* Draw bees */
 			
@@ -193,9 +193,7 @@
 
 	function check()
 	{
-
 		/*Check if bee shots or produce honey*/
-
 		for(i in bees)
 		{
 			if(typeof(bees[i].checkGetingSun) === "function")
@@ -208,9 +206,7 @@
 			}
 		};
 		i=0;
-
 		/* Check honey life */
-
 		for(i in honey)
 		{
 			if(honey[i].checkLife())
@@ -219,9 +215,7 @@
 			}
 		};
 		i=0;
-
 		/* Check if shot hit target */
-
 		for(i in shots)
 		{
 			var curr=shots[i];	
@@ -251,8 +245,6 @@
 			}
 		};
 		i=0;
-
-
 		for(i in humans)
 		{
 			humans[i].checkBite();
