@@ -282,6 +282,7 @@
 		for(j in sidebar.bees)
 		{
 			var curr=sidebar.bees[j];
+			console.log(curr);
 			var X=data.clientX;
 			var Y=data.clientY;
 			var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
@@ -294,7 +295,7 @@
 				}
 				else
 				{
-					if(honey-window[curr["name"]].prototype.cost>=0)
+					if(honey>=window[curr["name"]].prototype.cost)
 					{
 						player.select=[curr["name"],curr["id"]];
 						break;
