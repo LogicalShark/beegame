@@ -455,7 +455,7 @@ miningbee.prototype=
 			var curr = humans[i];
 			if(curr.y==this.y && Math.abs(humans[i].x-this.x)<=2*lawn.rectWidth)
 			{
-				if(Date.now()-this.lastShot>2500)
+				if(Date.now()-this.lastShot>4000)
 				{
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					this.lastShot=Date.now();
