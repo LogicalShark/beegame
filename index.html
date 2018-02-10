@@ -184,7 +184,8 @@
 		lawn.draw();
 		for(i in bees)
 		{
-			bees[i].draw();
+			if(bees.level<=level)
+				bees[i].draw();
 		}
 		for(i in humans)
 		{
@@ -323,23 +324,26 @@
 
 		for(j in sidebar.bees)
 		{
-			var curr=sidebar.bees[j];
-			var X=data.clientX;
-			var Y=data.clientY;
-			var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
-			if(click)
+			if(bees.level<=level)
 			{
-				if(player.select[0]==curr["name"])
+				var curr=sidebar.bees[j];
+				var X=data.clientX;
+				var Y=data.clientY;
+				var click=((X>curr.x)&&(X<curr.x+lawn.rectWidth)&&(Y>curr.y)&&(Y<curr.y+lawn.rectHeight));
+				if(click)
 				{
-					player.select=false;
-					break;
-				}
-				else
-				{
-					if(honey>=window[curr["name"]].prototype.cost)
+					if(player.select[0]==curr["name"])
 					{
-						player.select=[curr["name"],curr["id"]];
+						player.select=false;
 						break;
+					}
+					else
+					{
+						if(honey>=window[curr["name"]].prototype.cost)
+						{
+							player.select=[curr["name"],curr["id"]];
+							break;
+						}
 					}
 				}
 			}
