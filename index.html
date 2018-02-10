@@ -262,15 +262,17 @@
 			select:false
 		};
 		level = l;
-		if(level<3)
+		music.pause();
+		if(level==1)
 		{
-			var audio = new Audio('sounds/bgm.mp3');
-			audio.play();
+			music = new Audio('sounds/bgm.mp3');
+			music.play();
 		}
-		else
+		else if(level == 3)
 		{
-			var audio = new Audio('sounds/flight_of_the_bumblebee.mp3');
-			audio.play();
+			music.pause();
+			music2 = new Audio('sounds/flight_of_the_bumblebee.mp3');
+			music2.play();
 		}
 		canvas= document.createElement("canvas");
 		canvas.width=window.innerWidth;
