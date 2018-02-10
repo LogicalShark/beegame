@@ -425,6 +425,8 @@
 			}
 			bees.push(new window[player.select[0]](data.clientX,data.clientY));
 			lawn.lawn[Yko][Xko]=player.select[1];
+			var audio = new Audio('sounds/buzz.wav');
+			audio.play();	
 			player.select=false;			
 		}
 	};
