@@ -405,6 +405,40 @@ honeybee.prototype=
 		}
 	}
 };
+miningbee=function(x,y)
+{
+	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
+	this.y=Math.floor(y/lawn.rectHeight)*lawn.rectHeight;
+	this.start=Date.now();
+	this.health=10;
+	this.attack=1;
+	this.lastShot=Date.now();
+	honey-=this.cost;
+	this.image = new Image();
+	this.image.src="images/miningbee.png";
+};
+miningbee.prototype=
+{
+	cost:25,
+	draw:function()
+	{
+		context.drawImage(this.image,this.x,this.y,lawn.rectWidth,lawn.rectHeight);
+	},
+	checkShot:function()
+	{
+		if(Date.now()-this.lastShot>=5000){	
+			for(var j in humans)
+			{
+				if(humans[j].y==this.y && abs(humans[j].x-this.x)<=2*lawn.rectWidth)
+				{	
+					shots.push(new Shot2(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
+					this.lastShot=Date.now();
+					break;
+				}
+			}
+		}
+	}
+};
 swarm=function(x,y)
 {
 	this.x=Math.floor(x/lawn.rectWidth)*lawn.rectWidth;
@@ -433,7 +467,9 @@ swarm.prototype=
 			{
 				if(Date.now()-this.lastShot>5000)
 				{
-					shots.push(new Shot(this.x,this.y,curr,this.attack));
+					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16,5,0,this.attack));
+					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16+lawn.rectHeight,5,0,this.attack));
+					shots.push(new Shot(this.x+2*lawn.rectWidth/2,this.y+lawn.rectHeight/2-16-lawn.rectHeight,5,0,this.attack));
 					this.lastShot=Date.now();
 					break;
 				}
