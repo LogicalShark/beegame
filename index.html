@@ -128,14 +128,14 @@
 		document.body.appendChild(canvas);
 		context = canvas.getContext('2d');
 		isPlaying=false;
-		ticks=0;
-		honey=100;
+		ticks = 0;
+		honey = 100;
 		level = 0;
 		lasthumanAdd=Date.now();
-		bees=[];
-		humans=[];
-		honey=[];
-		shots=[];
+		bees = [];
+		humans = [];
+		honeys = [];
+		shots = [];
 		lawn.fill(lawn.lawn);
 	};
 
@@ -168,9 +168,9 @@
 		{
 			shots[i].draw();
 		}
-		for(i in honey)
+		for(i in honeys)
 		{
-			honey[i].draw();
+			honeys[i].draw();
 		}
 		sidebar.draw();
 	};
@@ -181,9 +181,9 @@
 		{
 			humans[i].move();
 		}
-		for(i in honey)
+		for(i in honeys)
 		{
-			honey[i].move();
+			honeys[i].move();
 		}
 		for(i in shots)
 		{
@@ -207,9 +207,9 @@
 		};
 		i=0;
 		/* Check honey life */
-		for(i in honey)
+		for(i in honeys)
 		{
-			if(honey[i].checkLife())
+			if(honeys[i].checkLife())
 			{
 				honey.splice(i,1);
 			}
@@ -295,9 +295,9 @@
 
 		/* If click in sun */
 
-		for(i in honey)
+		for(i in honeys)
 		{
-			var curr=honey[i];
+			var curr=honeys[i];
 			if(clickIn(X,Y,curr))
 			{
 				honey+=curr.honey;
