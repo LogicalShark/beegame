@@ -223,7 +223,7 @@ honeyDrop=function(x,y,honeyValue)
 	this.y=(y+this.radius);
 	this.dx=Math.random()*1-0.5;
 	this.dy=Math.random()*1-0.5;
-	this.startTime=Date.now();
+	this.startLife=Date.now();
 	this.image = new Image();
 	this.image.src="images/honey.png";
 	this.rotation=0;
@@ -232,12 +232,7 @@ honeyDrop.prototype=
 {
 	draw:function()
 	{
-	 	// context.save();
-		// context.rotate(this.rotation);
-		// context.translate((this.x+this.radius), (this.y+this.radius));
 		context.drawImage(this.image,this.x,this.y,this.radius*2,this.radius*2);
-		// context.restore();
-		
 	},
 	move:function()
 	{
@@ -269,9 +264,9 @@ honeyDrop.prototype=
 		this.dy-=this.dy*Math.random()/100;
 		this.dx-=this.dx*Math.random()/100;
 	},
-	checkTime:function()
+	checkLife:function()
 	{
-		if(Date.now()-this.startTime>=8000)
+		if(Date.now()-this.startLife>=8000)
 		{
 			return true;
 		}
@@ -314,7 +309,7 @@ swarm.prototype=
 				}
 				else if(this.rapidFire<3)
 				{
-					rapidFire+=1;
+					this.rapidFire+=1;
 					shots.push(new Shot2(this.x,this.y,curr,this.attack));
 					break;
 				}

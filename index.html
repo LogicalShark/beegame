@@ -245,7 +245,7 @@
 		/* Check honey time */
 		for(i in honeys)
 		{
-			if(honeys[i].checkTime())
+			if(honeys[i].checkLife())
 			{
 				honeys.splice(i,1);
 			}
@@ -255,8 +255,8 @@
 		for(i in shots)
 		{
 			var curr=shots[i];	
-			if(typeof(curr.checkColision) === "function"){		
-				if(curr.checkColision())
+			if(typeof(curr.checkCollision) === "function"){		
+				if(curr.checkCollision())
 				{
 					shots.splice(i,1);
 					continue;	
